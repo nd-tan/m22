@@ -53,7 +53,7 @@
             <div class="form-check form-check-inline">
             <select name = "breed" id= "breed">
                 <?php foreach ($cate as $cates){ ?>
-                <option value=""><?=$cates->name ?></option>
+                <option value="<?=$cates->name ?>"><?=$cates->name ?></option>
                 <?php  } ?><br>
                 <span><?php if (isset($err['breed'])) {
                             echo $err['breed'];
