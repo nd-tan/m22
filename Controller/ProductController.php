@@ -1,5 +1,7 @@
 <?php
 // include_once './';
+session_start();
+
 include_once '../models/ProductModel.php';
 include_once '../models/CategoryModel.php';
 class ProductController
@@ -7,6 +9,10 @@ class ProductController
     //lay toan bo records
     public function index()
     {
+        !isset($_SESSION['user_name']) == true;
+        if (isset($_SESSION['user_name']) == false) {
+            header("location:  UserController.php?action=login");
+        }
         //khoi tao doi tuong model
         $ProductModel = new ProductModel();
         $rows = $ProductModel->all();
@@ -63,7 +69,7 @@ class ProductController
             if($breed==""){$err['breed']="you can't leave it blank breed off product";}
             if($gender==""){$err['gender']="you can't leave it blank gender off product";}
             if($price==""){$err['price']="you can't leave it blank price off product";}
-            // if($img==""){$err['img']="you can't leave it blank image off product";}
+            if($img==""){$err['img']="you can't leave it blank image off product";}
             if(empty($err)){
                 //ket noi model
                 $UserModel->create($_REQUEST);
@@ -74,6 +80,20 @@ class ProductController
 
         //goi view
         include_once '../views/products/add.php';
+    }
+    public function search()
+    {
+        if($_SERVER['REQUEST_METHOD']=="POST")
+        {
+            $search= $_POST['search'];
+            $obj=new ProductModel();
+            $object=$obj->search($search);
+            // print_r($search);
+            // die();
+            // header("Location: CategoryController.php?action=index");
+
+        }
+        include_once '../views/products/search.php';
     }
 }
 
@@ -99,6 +119,9 @@ switch ($action) {
         break;
     case 'delete':
         $objController->delete();
+        break;
+    case 'search':
+        $objController->search();
         break;
     default:
         ####

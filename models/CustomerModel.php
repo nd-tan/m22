@@ -14,6 +14,18 @@
             // print_r($sql);die();
             return $rows;
         }
+        public function search($search){
+            global $conn;
+            $sql = "SELECT * FROM customers WHERE name LIKE '%$search%' OR id LIKE '%$search%' OR address LIKE '%$search%' OR email LIKE '%$search%' OR phone LIKE '%$search%'";
+            $stmt = $conn->query($sql);
+            $stmt->setFetchMode(PDO::FETCH_OBJ);
+            $rows = $stmt->fetchAll();
+            // echo '<pre>';
+            // print_r($rows);
+            // die();
+            return $rows;
+      
+          }
 //         public function getOne($id)
 //         {
 //           global $conn;

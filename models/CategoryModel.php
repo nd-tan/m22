@@ -77,5 +77,17 @@
         } else {
           return $message;
         }
-}
+    }
+    public function search($search){
+      global $conn;
+      $sql = "SELECT * FROM categories WHERE name LIKE '%$search%' OR id LIKE '%$search%'";
+      $stmt = $conn->query($sql);
+      $stmt->setFetchMode(PDO::FETCH_OBJ);
+      $rows = $stmt->fetchAll();
+      // echo '<pre>';
+      // print_r($rows);
+      // die();
+      return $rows;
+
+    }
 }

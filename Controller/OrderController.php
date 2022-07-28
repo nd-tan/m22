@@ -1,11 +1,17 @@
 <?php
 // include_once './';
+session_start();
+
 include_once '../models/OrderModel.php';
 class OrderController
 {
     //lay toan bo records
     public function index()
     {
+        !isset($_SESSION['user_name']) == true;
+        if (isset($_SESSION['user_name']) == false) {
+            header("location:  UserController.php?action=login");
+        }
         //khoi tao doi tuong model
         $OrderModel = new OrderModel();
         $rows = $OrderModel->all();
