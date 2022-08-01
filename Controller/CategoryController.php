@@ -32,11 +32,11 @@ class CategoryController
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $_POST['name'];
             if ($name == "") {
-                $err['name_1'] = "bạn không được để trống mục này";
+                $err['name_1'] = "You can't leave it blank name this part";
             }
             foreach ($rows as $key => $row) {
                 if ($row->name == $name && $id != $row->id) {
-                    $err['name'] = "đã tồn tại";
+                    $err['name'] = "Category already exists";
                 }
             }
             if (empty($err)) {
@@ -72,11 +72,11 @@ class CategoryController
             $UserModel = new CategoryModel();
             $rows = $UserModel->all();
             if ($name == "") {
-                $err['name_1'] = "bạn không thể để trống";
+                $err['name_1'] = "You can't leave it blank this part";
             }
             foreach ($rows as $row) {
                 if ($row->name == $name) {
-                    $err['name'] = "đã tồn tại";
+                    $err['name'] = "Category already exists";
                 }
             }
             if (empty($err)) {

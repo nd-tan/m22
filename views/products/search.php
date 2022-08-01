@@ -20,7 +20,7 @@
                         <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="ProductController.php?action=search" method="post">
                         <div class="input-group">
-                            <input name="search" type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input name="search" type="text" value="<?=$search?>" class="form-control bg-light border-0 small" placeholder="Search for..."
                                 aria-label="Search" aria-describedby="basic-addon2" style="left:497px; right: inherit">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit" style="left:497px;">
@@ -34,6 +34,7 @@
                                 <tr>
                                     <th scope="col">Code</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Breed</th>
                                     <th scope="col">Color</th>
                                     <th scope="col">Gender</th>
                                     <th scope="col">Price($)</th>
@@ -47,6 +48,7 @@
                                     <tr>
                                         <td width="170px"><?php echo $item->id; ?></td>
                                         <td><?php echo $item->name; ?></td>
+                                        <td><?php echo $item->categoryName; ?></td>
                                         <td><?php echo $item->color; ?></td>
                                         <td><?php echo $item->gender; ?></td>
                                         <td><?php echo $item->price; ?></td>

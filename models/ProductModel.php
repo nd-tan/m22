@@ -4,7 +4,7 @@
         //lay tat ca
         public function all(){
             global $conn;
-            $sql = "SELECT * FROM products ORDER BY id DESC";
+            $sql = "SELECT products.*,categories.name as categoryName FROM products join categories on products.categories_id = categories.id ORDER BY id DESC";
             $stmt = $conn->query($sql);
             //Thiết lập kiểu dữ liệu trả về
             $stmt->setFetchMode(PDO::FETCH_OBJ);
@@ -46,7 +46,7 @@
             $image = $data['image'];
             $gender = $data['gender'];
 
-            $sql = " INSERT INTO products ( name,age,color,breed,price,image,gender) VALUES 
+            $sql = " INSERT INTO products ( name,age,color,categories_id,price,image,gender) VALUES 
             ('$name','$age','$color','$breed','$price','$image','$gender')";
             $conn->query($sql);
         }
@@ -58,7 +58,7 @@
             name = '" . $_POST['name'] . "',
             age = '" . $_POST['age'] . "',
             color = '" . $_POST['color'] . "',
-            breed = '" . $_POST['breed'] . "',
+            categories_id = '" . $_POST['breed'] . "',
             price = '" . $_POST['price'] . "',
             image = '" . $_POST['img'] . "',
             gender = '" . $_POST['gender'] . "'
@@ -75,7 +75,20 @@
             $sql = "DELETE FROM products WHERE id = '$id'";
             $conn->exec($sql);
     } 
-
+    public function search($search){
+        global $conn;
+        $sql = "SELECT products.*,categories.name as categoryName FROM products join categories on products.categories_id = categories.id 
+        WHERE categories.name LIKE '%$search%'  OR products.name like '%$search%'  OR products.gender like '%$search%' OR products.age like '%$search%' OR products.color like '%$search%' OR products.price like '%$search%' OR products.id like '%$search%'";
+        $stmt = $conn->query($sql);
+        $stmt->setFetchMode(PDO::FETCH_OBJ);
+        $rows = $stmt->fetchAll();
+        // echo '<pre>';
+        // print_r($search);
+        // die();
+        
+        return $rows;
+  
+      }
 
     
 }

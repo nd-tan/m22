@@ -35,6 +35,7 @@
                                 <tr>
                                     <th scope="col">Code</th>
                                     <th scope="col">Name</th>
+                                    <th scope="col">Breed</th>
                                     <th scope="col">Color</th>
                                     <th scope="col">Gender</th>
                                     <th scope="col">Price($)</th>
@@ -48,6 +49,7 @@
                                     <tr>
                                         <td width="170px"><?php echo $item->id; ?></td>
                                         <td><?php echo $item->name; ?></td>
+                                        <td><?php echo $item->categoryName; ?></td>
                                         <td><?php echo $item->color; ?></td>
                                         <td><?php echo $item->gender; ?></td>
                                         <td><?php echo $item->price; ?></td>

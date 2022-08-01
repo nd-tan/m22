@@ -22,35 +22,39 @@
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Name</label>
                 <input type="text" name="name" id="" class="form-control" placeholder="" value="<?=$obj->name; ?>">
-                <span><?php if (isset($errors['name'])) {
-                            echo $errors['name'];
+                <span><?php if (isset($err['name'])) {
+                            echo $err['name'];
                         }
                           ?></span>
             </div>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Age</label>
                 <input type="text" name="age" id="" class="form-control" placeholder="" value="<?=$obj->age; ?>">
-                <span><?php if (isset($errors['age'])) {
-                            echo $errors['age'];
+                <span><?php if (isset($err['age'])) {
+                            echo $err['age'];
                         }
                           ?></span>
             </div>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Color</label>
                 <input type="text" name="color" id="" class="form-control" placeholder="" value="<?=$obj->color; ?>">
-                <span><?php if (isset($errors['color'])) {
-                            echo $errors['color'];
+                <span><?php if (isset($err['color'])) {
+                            echo $err['color'];
                         }
                           ?></span>
             </div>
-            <div class="mb-3">
-                <label for="disabledTextInput" class="form-label">Breed</label>
-                <input type="text" name="breed" id="" class="form-control" placeholder="" value="<?=$obj->breed; ?>">
-                <span><?php if (isset($errors['breed'])) {
-                            echo $errors['breed'];
+            <label for="disabledTextInput" class="form-label">Breed</label>
+            <div class="form-check form-check-inline">
+            <select name = "breed" value="<?=$cates->id?>">
+                <?php foreach ($cate as $cates){ ?>
+                <option <?=$cates->id == $obj->categories_id ? 'selected': ''?> value="<?=$cates->id ?>"><?=$cates->name?></option>
+                <?php  } ?><br>
+                <span><?php if (isset($err['breed'])) {
+                            echo $err['breed'];
                         }
                           ?></span>
-            </div>
+            </select>
+            </div><br>
             <label for="disabledTextInput" class="form-label">Gender</label><br>
             <div class="form-check form-check-inline">
             <?php $signi= $obj->gender; ?> 
@@ -68,16 +72,17 @@
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Price($)</label>
                 <input type="text" name="price" id="" class="form-control" placeholder="" value="<?=$obj->price; ?>">
-                <span><?php if (isset($errors['price'])) {
-                            echo $errors['price'];
+                <span><?php if (isset($err['price'])) {
+                            echo $err['price'];
                         }
                           ?></span>
             </div>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Images</label>
                 <input type="file" name="img" id="" class="form-control" placeholder="" value="<?=$obj->image; ?>">
-                <span><?php if (isset($errors['img'])) {
-                            echo $errors['img'];
+                <td><img src="../Img/img/<?php echo $obj->image ?>" width="120px" height="120px" alt=""></td>
+                <span><?php if (isset($err['img'])) {
+                            echo $err['img'];
                         }
                           ?></span>
             </div>

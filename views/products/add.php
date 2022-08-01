@@ -22,7 +22,7 @@
           
             <div class="mb-3">
                 <label for="disabledTextInput" >Name</label>
-                <input type="text" name="name" id="" class="form-control" placeholder="" value="">
+                <input type="text" name="name" id="" class="form-control" placeholder="" value="<?php if(isset($name)){echo $name;}  ?>">
                 <span><?php if (isset($err['name'])) {
                             echo $err['name'];
                         }
@@ -30,7 +30,7 @@
             </div>
             <div class="mb-3">
                 <label for="disabledTextInput" >Age</label>
-                <input type="text" name="age" id="" class="form-control" placeholder="" value="">
+                <input type="text" name="age" id="" class="form-control" placeholder="" value="<?php if(isset($age)){echo $age;}  ?>">
                 <span><?php if (isset($err['age'])) {
                             echo $err['age'];
                         }
@@ -38,7 +38,7 @@
             </div>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Color</label>
-                <input type="text" name="color" id="" class="form-control" placeholder="" value="">
+                <input type="text" name="color" id="" class="form-control" placeholder="" value="<?php if(isset($color)){echo $color;}  ?>">
                 <span><?php if (isset($err['color'])) {
                             echo $err['color'];
                         }
@@ -53,7 +53,7 @@
             <div class="form-check form-check-inline">
             <select name = "breed" id= "breed">
                 <?php foreach ($cate as $cates){ ?>
-                <option value="<?=$cates->name ?>"><?=$cates->name ?></option>
+                <option value="<?=$cates->id ?>"><?=$cates->name ?></option>
                 <?php  } ?><br>
                 <span><?php if (isset($err['breed'])) {
                             echo $err['breed'];
@@ -79,7 +79,7 @@
                           ?></span>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Price($)</label>
-                <input type="text" name="price" id="" class="form-control" placeholder="" value="">
+                <input type="text" name="price" id="" class="form-control" placeholder="" value="<?php if(isset($price)){echo $price;}  ?>">
                 <span><?php if (isset($err['price'])) {
                             echo $err['price'];
                         }
@@ -87,9 +87,9 @@
             </div>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Images</label>
-                <input type="file" name="image" id="" class="form-control" placeholder="" value="">
-                <span><?php if (isset($err['img'])) {
-                            echo $err['img'];
+                <input type="file" name="image" id="" class="form-control" placeholder="">
+                <span><?php if (isset($err['image'])) {
+                            echo $err['image'];
                         }
                           ?></span>
             </div>

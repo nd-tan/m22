@@ -62,7 +62,7 @@
                                                         <input class="form-control" id="" type="password" placeholder="" name="password"/>
                                                         <label for="inputPassword">Password</label>
                                                         <span><?php if (isset($err['password'])) {
-                                                         echo $errors['password'];
+                                                         echo $err['password'];
                                                             }  ?></span>
                                                     </div>
                                                 </div>

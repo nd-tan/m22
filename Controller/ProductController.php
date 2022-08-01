@@ -16,6 +16,8 @@ class ProductController
         //khoi tao doi tuong model
         $ProductModel = new ProductModel();
         $rows = $ProductModel->all();
+        $category_id= new CategoryModel();
+        $category=$category_id->all();
         // echo "<pre>";
         // print_r($rows);
         include_once '../views/products/index.php';
@@ -26,13 +28,36 @@ class ProductController
         $id = $_GET['id'];
         $object = new ProductModel();
         $obj = $object->getOne($id);
+        $Category = new CategoryModel();//////lấy bảng cate để sổ danh mục trong phần edit
+        $cate = $Category->all();
+        // print_r($cate);
+        // die();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $object->update($id, $_REQUEST);
-            // echo '<pre>';
-            // print_r($_REQUEST);
-            // die();
-            $_SESSION['flash_message'] = "Chỉnh sửa danh mục thành công";
-        header('Location:ProductController.php?action=index');
+            $name = $_POST['name'];
+            $age = $_POST['age'];
+            $color = $_POST['color'];
+            $breed = $_POST['breed'];
+            $gender = $_POST['gender'];
+            $price = $_POST['price'];
+            $img=$_POST['img'];
+
+            $err=[];
+            $fields = ['name', 'age', 'color', 'price','gender'];
+            foreach ($fields as $field) {
+                if (empty($_POST[$field])) {
+                    $err[$field] = "You can't leave it blank this part";
+                }
+            }
+          
+
+            if($img==""){
+                $_POST['img']=$obj->image;
+            }
+            if(empty($err)){
+
+                $object->update($id, $_REQUEST);
+                header('Location:ProductController.php?action=index');
+            }
         }
 
         include_once '../views/products/edit.php';
@@ -43,34 +68,33 @@ class ProductController
         $object = new ProductModel();
         $object->delete($id);
         // print_r($object);
-        $_SESSION['flash_message'] = "Xóa danh mục thành công";
+        // $_SESSION['flash_message'] = "Xóa danh mục thành công";
         header("Location:ProductController.php?action=index");
     }
 
 
     public function add()
     {
-        $Category=new CategoryModel();
-        $cate=$Category->all();
+        $Category = new CategoryModel();
+        $cate = $Category->all();//////lấy bảng cate để sổ danh mục trong phần add
         $UserModel = new ProductModel();
-
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $name=$_POST['name'];
-            $age=$_POST['age'];
-            $color=$_POST['color'];
-            $breed=$_POST['breed'];
-            $gender=$_POST['gender'];
-            $price=$_POST['price'];
-            $img=$_POST['image'];
-            $err=[];
-            if($name==""){$err['name']="you can't leave it blank name off product";}
-            if($age==""){$err['age']="you can't leave it blank age off product";}
-            if($color==""){$err['color']="you can't leave it blank color off product";}
-            if($breed==""){$err['breed']="you can't leave it blank breed off product";}
-            if($gender==""){$err['gender']="you can't leave it blank gender off product";}
-            if($price==""){$err['price']="you can't leave it blank price off product";}
-            if($img==""){$err['img']="you can't leave it blank image off product";}
-            if(empty($err)){
+            $name = $_POST['name'];
+            $age = $_POST['age'];
+            $color = $_POST['color'];
+            $breed = $_POST['breed'];
+            $gender = $_POST['gender'];
+            $price = $_POST['price'];
+            $img = $_POST['image'];
+            $err = [];
+            $fields = ['name', 'age', 'color', 'breed', 'price', 'image','gender'];
+            foreach ($fields as $field) {
+                if (empty($_POST[$field])) {
+                    $err[$field] = "You can't leave it blank this part";
+                }
+            }
+            
+            if (empty($err)) {
                 //ket noi model
                 $UserModel->create($_REQUEST);
                 //chuyen huong ve 
@@ -83,11 +107,11 @@ class ProductController
     }
     public function search()
     {
-        if($_SERVER['REQUEST_METHOD']=="POST")
-        {
-            $search= $_POST['search'];
-            $obj=new ProductModel();
-            $object=$obj->search($search);
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $search = $_POST['search'];
+            $obj = new ProductModel();
+            $object = $obj->search($search);
+            $obj_cate=$obj->all();
             // print_r($search);
             // die();
             // header("Location: CategoryController.php?action=index");

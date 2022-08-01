@@ -21,7 +21,7 @@
           
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Name</label>
-                <input type="text" name="name" id="" class="form-control" placeholder="" value="">
+                <input type="text" name="name" id="" class="form-control" placeholder="" value="<?php if(isset($name)){echo $name;}  ?>">
                 <span><?php if (isset($err['name_1'])) {
                             echo $err['name_1'];
                         }if (isset($err['name'])) {
