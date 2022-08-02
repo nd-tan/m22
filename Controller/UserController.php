@@ -20,6 +20,10 @@ class UserController
     }
     public function login()
     {
+        // if(isset($_SESSION['user_name']))
+        // {
+        //     header("location:  UserController.php?action=index");
+        // }
         session_destroy();
         session_start();
         $UserModel = new UserModel();
@@ -76,7 +80,7 @@ class UserController
     public function logout()
     {
         // session_destroy();
-        // include "../views/users/logout.php";
+        // session_start();
         header("Location: UserController.php?action=login");
     }
     public function register()
@@ -131,30 +135,58 @@ if (isset($_REQUEST['action'])) {
 } else {
     $action = 'login';
 }
+// if(isset($_SESSION['user_name']))
+// {
+//     $action='index';
+// }else
+// {
+//     $actin='login';
+// }
 
 switch ($action) {
+    case 'login':
+        if(isset($_SESSION['user_name']))
+        {
+            header("Location: UserController.php?action=index");
+          
+        }else
+        {
+            $objController->login();
+        }
+        break;
     case 'index':
         $objController->index();
+        
         break;
     case 'home':
         $objController->home();
         break;
-    case 'customer':
-        $objController->customer();
-        break;
-    case 'category':
-        $objController->category();
-        break;
-    case 'login':
-        $objController->login();
-        break;
-    case 'order':
-        $objController->order();
-        break;
-    case 'product':
-        $objController->product();
-        break;
+    // case 'customer':
+    //     $objController->customer();
+    //     break;
+    // case 'category':
+    //     $objController->category();
+    //     break;
+        // if(isset($_SESSION['user_name']))
+        // {
+        //     header("Location: CategoryController.php?action=index");
+        // }else
+        // {
+        //     $objController->login();
+        // }
+        // break;
+    // case 'order':
+    //     $objController->order();
+    //     break;
+    // case 'product':
+    //     $objController->product();
+    //     break;
     case 'logout':
+        if(isset($_SESSION["user_name"])){
+            // echo $_SESSION["user_name"];
+            // die;
+            unset($_SESSION["user_name"]);
+        }
         $objController->logout();
         break;
     case 'register':
