@@ -20,10 +20,6 @@ class UserController
     }
     public function login()
     {
-        // if(isset($_SESSION['user_name']))
-        // {
-        //     header("location:  UserController.php?action=index");
-        // }
         session_destroy();
         session_start();
         $UserModel = new UserModel();
@@ -79,8 +75,7 @@ class UserController
     }
     public function logout()
     {
-        // session_destroy();
-        // session_start();
+
         header("Location: UserController.php?action=login");
     }
     public function register()
@@ -156,9 +151,13 @@ switch ($action) {
         break;
     case 'index':
         $objController->index();
-        
         break;
     case 'home':
+        // session_start();
+        if (isset($_SESSION['user_name']) == false) {
+            header("location:  UserController.php?action=login");
+        }
+        // session_destroy();
         $objController->home();
         break;
     // case 'customer':
@@ -182,11 +181,9 @@ switch ($action) {
     //     $objController->product();
     //     break;
     case 'logout':
-        if(isset($_SESSION["user_name"])){
-            // echo $_SESSION["user_name"];
-            // die;
+        session_start();
             unset($_SESSION["user_name"]);
-        }
+        
         $objController->logout();
         break;
     case 'register':
