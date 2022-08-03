@@ -52,3 +52,6 @@ include '../views/layout/sidebar.php';
             </main>
         </div>
     </div>
+<?php
+ include '../views/layout/footer.php' ;
+ ?>

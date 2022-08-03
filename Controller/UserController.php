@@ -86,8 +86,8 @@ class UserController
             $phone = $_POST['phone'];
             $address = $_POST['address'];
             $email = $_POST['email'];
-            $password = $_POST['password'];
-            $confirmpassword = $_POST['confirmpassword'];
+            $password = md5($_POST['password']);
+            $confirmpassword = md5($_POST['confirmpassword']);
             $err = [];
             if ($user_name == "") {
                 $err['name'] = "bạn không thể để trống tên người dùng";
