@@ -22,7 +22,7 @@ class CartController
         $cate= new CategoryModel;
         $catesidebar=$cate->all();
         $id= $_GET['id'];
-        $quantity = 1;
+        $quantity = (isset($_REQUEST['quantityCart']) ? $_REQUEST['quantityCart'] : 1);
         $obj= new CartModel;
         $object=$obj->getOne($id);
         $item=[
@@ -37,8 +37,28 @@ class CartController
         } else {
             $_SESSION['cart'][$id] = $item;
         }
+        include_once "../../views/shop/cart/cart.php";
+    }
+    public function delete()
+    {
+        $cate= new CategoryModel;
+        $catesidebar=$cate->all();
+        $id=$_REQUEST['id'];
+        // var_dump($id);
+        unset($_SESSION['cart'][$id]);
+        include_once "../../views/shop/cart/cart.php";
 
-
+    }
+    public function update()
+    {
+        $cate= new CategoryModel;
+        $catesidebar=$cate->all();
+        if($_SERVER['REQUEST_METHOD']=="POST")
+        {
+            $id=$_REQUEST['id'];
+            $quantity=$_POST['quantityCart'];
+            
+        }
         include_once "../../views/shop/cart/cart.php";
     }
 }
@@ -54,5 +74,11 @@ switch($action){
         break;
     case 'showcart':
         $obj->showcat();
+        break;
+    case 'delete':
+        $obj->delete();
+        break;
+    case 'update':
+        $obj->update();
         break;
 }

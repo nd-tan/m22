@@ -1,9 +1,11 @@
 <?php
 include "./../../views/shop/layout/header.php";
 include "./../../views/shop/layout/sidebar.php";
-// $carts = (isset($_SESSION['cart'])) ? $_SESSION['cart'] : [];
+(isset($_SESSION['cart'])) ? $_SESSION['cart'] : [];
 // print_r($_SESSION['cart']);
 // die();
+// session_destroy();
+$total=0;
 ?>
    
     <!-- Breadcrumb Section End -->
@@ -26,11 +28,15 @@ include "./../../views/shop/layout/sidebar.php";
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php foreach($_SESSION['cart'] as $key => $item) : ?>
+                                <?php foreach($_SESSION['cart'] as $key => $item) : 
+                                   $total+= $item['price']*$item['quantityCart'];
+                                   ?>
+                                   <form action="" method="post">
                                 <tr>
                                     <td class="shoping__cart__item">
                                         <img src="img/cart/cart-1.jpg" alt="">
                                         <h5><?=$item['name']; ?></h5>
+                                        <input type="hidden" name="id[]" value="<?=$item['id'];?>">
                                     </td>
                                     <td class="shoping__cart__price">
                                         $<?=$item['price'];?>
@@ -38,15 +44,15 @@ include "./../../views/shop/layout/sidebar.php";
                                     <td class="shoping__cart__quantity">
                                         <div class="quantity">
                                             <div class="pro-qty">
-                                                <input type="text" value="1" name ="quantityCart">
+                                                <input type="text" value="<?=$item['quantityCart']?>" name ="quantityCart[]">
                                             </div>
                                         </div>
                                     </td>
                                     <td class="shoping__cart__total">
-                                        $110.00
+                                        $<?=$item['price']*$item['quantityCart']?>
                                     </td>
                                     <td class="shoping__cart__item__close">
-                                        <span class="icon_close"></span>
+                                        <a class="icon_close" href="CartController.php?action=delete&id=<?=$item['id']?>"></a>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
@@ -59,10 +65,12 @@ include "./../../views/shop/layout/sidebar.php";
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
                         <a href="ShowController.php?action=index" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-                        <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                            Upadate Cart</a>
+                        <a href="CartController.php?action=update" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
+                        Upadate Cart</a>
+                        <button type="submit" value="update">update</button>
                     </div>
                 </div>
+            </form>
                 <div class="col-lg-6">
                     <div class="shoping__continue">
                         <div class="shoping__discount">
@@ -78,8 +86,7 @@ include "./../../views/shop/layout/sidebar.php";
                     <div class="shoping__checkout">
                         <h5>Cart Total</h5>
                         <ul>
-                            <li>Subtotal <span>$454.98</span></li>
-                            <li>Total <span>$454.98</span></li>
+                            <li>Total <span>$<?=$total?></span></li>
                         </ul>
                         <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
