@@ -28,15 +28,15 @@ $total=0;
                                 </tr>
                             </thead>
                             <tbody>
+                                <form action="CartController.php?action=update" method="post">
                                 <?php foreach($_SESSION['cart'] as $key => $item) : 
                                    $total+= $item['price']*$item['quantityCart'];
                                    ?>
-                                   <form action="" method="post">
                                 <tr>
                                     <td class="shoping__cart__item">
                                         <img src="img/cart/cart-1.jpg" alt="">
                                         <h5><?=$item['name']; ?></h5>
-                                        <input type="hidden" name="id[]" value="<?=$item['id'];?>">
+                                        <input type="text" name="id[]" value="<?=$item['id'];?>">
                                     </td>
                                     <td class="shoping__cart__price">
                                         $<?=$item['price'];?>
@@ -65,8 +65,8 @@ $total=0;
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
                         <a href="ShowController.php?action=index" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
-                        <a href="CartController.php?action=update" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                        Upadate Cart</a>
+                        <!-- <a href="CartController.php?action=update" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
+                        Upadate Cart</a> -->
                         <button type="submit" value="update">update</button>
                     </div>
                 </div>

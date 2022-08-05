@@ -24,6 +24,7 @@ class ShowController
 
     // }
 
+
 }
 $obj=new ShowController;
 if (isset($_REQUEST['action'])) {
@@ -35,8 +36,8 @@ switch($action){
     case 'index':
         $obj->index();
         break;
-    // case 'cate':
-    //     $obj->cate();
+    // case 'checkOut':
+    //     $obj->checkOut();
     //     break;
 
 }
