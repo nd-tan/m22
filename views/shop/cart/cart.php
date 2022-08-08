@@ -1,7 +1,6 @@
 <?php
 include "./../../views/shop/layout/header.php";
 include "./../../views/shop/layout/sidebar.php";
-(isset($_SESSION['cart'])) ? $_SESSION['cart'] : [];
 // print_r($_SESSION['cart']);
 // die();
 // session_destroy();
@@ -29,22 +28,24 @@ $total=0;
                             </thead>
                             <tbody>
                                 <form action="CartController.php?action=update" method="post">
+                                    <?php if(isset($_SESSION['cart'])): ?>
                                 <?php foreach($_SESSION['cart'] as $key => $item) : 
                                    $total+= $item['price']*$item['quantityCart'];
                                    ?>
                                 <tr>
                                     <td class="shoping__cart__item">
-                                        <img src="img/cart/cart-1.jpg" alt="">
+                                        <img src="../../Img/img/<?php echo $item['img']?>" width="120px" height="120px" alt="">
                                         <h5><?=$item['name']; ?></h5>
-                                        <input type="text" name="id[]" value="<?=$item['id'];?>">
+                                        <input type="hidden" name="id[]" value="<?=$item['id'];?>">
+                                        <input type="hidden" name="dfghjk" value="<?=$item['quantitymax'];?>">
                                     </td>
                                     <td class="shoping__cart__price">
                                         $<?=$item['price'];?>
                                     </td>
-                                    <td class="shoping__cart__quantity">
-                                        <div class="quantity">
-                                            <div class="pro-qty">
-                                                <input type="text" value="<?=$item['quantityCart']?>" name ="quantityCart[]">
+                                    <td class="">
+                                        <div class="">
+                                            <div class="">
+                                                <input type="number" value="<?=$item['quantityCart']?>" name ="quantityCart[]" min="0" max="<?=$item['quantitymax']?>">
                                             </div>
                                         </div>
                                     </td>
@@ -56,6 +57,11 @@ $total=0;
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
+                                <?php else : ?>
+                                    <tr>
+                                        <td>giỏ hàng đang rỗng vui lòng quay lại cửa hàng</td>
+                                    </tr>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -67,7 +73,7 @@ $total=0;
                         <a href="ShowController.php?action=index" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
                         <!-- <a href="CartController.php?action=update" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
                         Upadate Cart</a> -->
-                        <button type="submit" value="update">update</button>
+                        <button class="primary-btn cart-btn cart-btn-right" type="submit" value="update">UPDATE CART</button>
                     </div>
                 </div>
             </form>
@@ -88,7 +94,7 @@ $total=0;
                         <ul>
                             <li>Total <span>$<?=$total?></span></li>
                         </ul>
-                        <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
+                        <a href="CartController.php?action=checkout" class="primary-btn">PROCEED TO CHECKOUT</a>
                     </div>
                 </div>
             </div>

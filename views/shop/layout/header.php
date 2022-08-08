@@ -111,16 +111,18 @@
                             </div>
                             <div class="header__top__right__language">
                                 <img src="img/language.png" alt="">
-                                <div>English</div>
+                                <div>Account</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
-                                    <li><a href="#">Spanis</a></li>
-                                    <li><a href="#">English</a></li>
+                                    <li><a href="CartController.php?action=login">Login</a></li>
+                                    <li><a href="CartController.php?action=logout">Logout</a></li>
+                                    <li><a href="CartController.php?action=register">Register</a></li>
                                 </ul>
                             </div>
-                            <div class="header__top__right__auth">
-                                <a href="#"><i class="fa fa-user"></i> Login</a>
-                            </div>
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?=$_SESSION['user_name']??"" ?></span>
+                            <!-- <div class="header__top__right__auth">
+                                <a href="CartController.php?action=login"><i class="fa fa-user"></i> Login</a>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -157,7 +159,8 @@
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
                             <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
+                        
+                        <div class="header__cart__price">item: <span><?php if(isset($total)){echo $total;}else{echo "";}?></span></div>
                     </div>
                 </div>
             </div>

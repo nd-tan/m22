@@ -1,6 +1,8 @@
 <?php
 include "../../models/shop/ShowModel.php";
 include "../../models/CategoryModel.php";
+session_start();
+
 // include "../../models/ProductModel.php";
 class ShowController
 {
