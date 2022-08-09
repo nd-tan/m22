@@ -38,6 +38,7 @@ $total=0;
                                         <h5><?=$item['name']; ?></h5>
                                         <input type="hidden" name="id[]" value="<?=$item['id'];?>">
                                         <input type="hidden" name="dfghjk" value="<?=$item['quantitymax'];?>">
+                                        <input type="hidden" name="total[]" value="<?=$item['price']*$item['quantityCart'];?>">
                                     </td>
                                     <td class="shoping__cart__price">
                                         $<?=$item['price'];?>
@@ -59,7 +60,7 @@ $total=0;
                                 <?php endforeach; ?>
                                 <?php else : ?>
                                     <tr>
-                                        <td>giỏ hàng đang rỗng vui lòng quay lại cửa hàng</td>
+                                        <td>Cart is empty please come back to shop</td>
                                     </tr>
                                 <?php endif; ?>
                             </tbody>

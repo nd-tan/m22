@@ -12,7 +12,7 @@ $total =0;
     <div class="container">
         <div class="checkout__form">
             <h4>Billing Details</h4>
-            <form action="#" method ="post">
+            <form action="CartController.php?action=placeOrder" method ="post">
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
                         <?php if(isset($object)):?>
@@ -21,22 +21,42 @@ $total =0;
                                 <div class="checkout__input">
                                     <p>Fist Name<span>*</span></p>
                                     <input type="text" value="<?=$object->name?>" name ="name">
+                                    <span><?php if(isset($err['name']))
+                                    {
+                                        echo $err['name'];
+                                    } ?>
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="checkout__input">
                                     <p>Last Name<span>*</span></p>
                                     <input type="text" name ="last_name">
+                                    <span><?php if(isset($err['last_name']))
+                                    {
+                                        echo $err['last_name'];
+                                    } ?>
+                                    </span>
                                 </div>
                             </div>
                         </div>
                         <div class="checkout__input">
                             <p>Country<span>*</span></p>
                             <input type="text" name ="country">
+                            <span><?php if(isset($err['country']))
+                                    {
+                                        echo $err['country'];
+                                    } ?>
+                                    </span>
                         </div>
                         <div class="checkout__input">
                             <p>Address<span>*</span></p>
                             <input type="text" placeholder="Street Address" class="checkout__input__add" value="<?=$object->address?>" name ="address">
+                            <span><?php if(isset($err['address']))
+                                    {
+                                        echo $err['address'];
+                                    } ?>
+                                    </span>
                             <!-- <input type="text" placeholder="Apartment, suite, unite ect (optinal)"> -->
                         </div>
                        
@@ -45,12 +65,22 @@ $total =0;
                                 <div class="checkout__input">
                                     <p>Phone<span>*</span></p>
                                     <input type="text" value="<?=$object->phone?>" name ="phone">
+                                    <span><?php if(isset($err['phone']))
+                                    {
+                                        echo $err['phone'];
+                                    } ?>
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="checkout__input">
                                     <p>Email<span>*</span></p>
                                     <input type="text" value="<?=$object->email?>" name ="email">
+                                    <span><?php if(isset($err['email']))
+                                    {
+                                        echo $err['email'];
+                                    } ?>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -66,6 +96,11 @@ $total =0;
                         <div class="checkout__input">
                             <p>Account Password<span>*</span></p>
                             <input type="text" name ="password">
+                            <span><?php if(isset($err['password']))
+                                    {
+                                        echo $err['password'];
+                                    } ?>
+                                    </span>
                         </div>
                         <!-- <div class="checkout__input__checkbox">
                             <label for="diff-acc">
@@ -89,9 +124,12 @@ $total =0;
                             <ul>
                             <?php if(isset($_SESSION['cart'])): ?>
                                 <?php foreach($_SESSION['cart'] as $key => $item ):
-                                    $total+=$item['price'];
+                                    $total+=$item['price']*$item['quantityCart'];
                                     ?>
-                                <li><?=$item['name']?><span>$<?=$item['price']?></span></li>
+                                <li><?=$item['name']?><span>$<?=$item['price']*$item['quantityCart']?></span></li>
+                                <input type="hidden" name="id[]" value="<?=$item['id']?>">
+                                <input type="hidden" name="quantity[]" value="<?=$item['quantityCart']?>">
+                                <input type="hidden" name="total[]" value="<?=$item['price']*$item['quantityCart']?>">
                                 <!-- <li>Fresh Vegetable <span>$151.99</span></li>
                                 <li>Organic Bananas <span>$53.99</span></li> -->
                                 <?php endforeach; ?>

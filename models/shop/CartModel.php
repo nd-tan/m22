@@ -64,19 +64,82 @@ class CartModel
   ( '$name','$phone','$address','$email','$password' )";
     $conn->query($sql);
   }
-//   public function create_order( $data ){
-//     global $conn;
-//     $name = $data['name'];
-//     $last_name = $data['last_name'];
-//     $country = $data['country'];
-//     $address = $data['address'];
-//     $phone = $data['phone'];
-//     $email = $data['email'];
-//     $gender = $data['gender'];
+  public function create_order( $data ){
+    global $conn;
+    $name = $data['name'];
+    $last_name = $data['last_name'];
+    $country = $data['country'];
+    $address = $data['address'];
+    $phone = $data['phone'];
+    $email = $data['email'];
+    $customers_id = $data['customers_id'];
+    $notes = $data['notes'];
 
-//     $sql = " INSERT INTO orders ( name,age,color,categories_id,price,image,gender) VALUES 
-//     ('$name','$age','$color','$breed','$price','$image','$gender')";
-//     $conn->query($sql);
-// }
+    $sql = " INSERT INTO orders ( name,last_name,address,email,country,phone,customers_id,notes) VALUES 
+    ('$name','$last_name','$address','$email','$country','$phone','$customers_id','$notes')";
+    $conn->query($sql);
+}
+  public function create_order_detail( $data ){
+  global $conn;
+  $orders_id = $data['orders_id'];
+  $quantity = $data['quantity'];
+  $products_id = $data['products_id'];
+  $total_price = $data['total_price'];
 
+
+  $sql = " INSERT INTO orders_detail ( orders_id,quantity,products_id,totalPrice) VALUES 
+  ('$orders_id','$quantity','$products_id','$total_price')";
+  $conn->query($sql);
+}
+
+  public function update($id, $data){
+  global $conn;
+  $sql = "UPDATE customers SET 
+  name = '" . $_POST['name'] . "',
+  address = '" . $_POST['address'] . "',
+  email = '" . $_POST['email'] . "',
+  phone = '" . $_POST['phone'] . "',
+  last_name = '" . $_POST['last_name'] . "',
+  country = '" . $_POST['country'] . "'
+  WHERE id = $id";
+  // print_r($sql);
+  // die();
+  $conn->exec($sql);
+}
+
+  public function all_orders(){
+  global $conn;
+  $sql = "SELECT * FROM orders";
+  $stmt = $conn->query($sql);
+  //Thiết lập kiểu dữ liệu trả về
+  $stmt->setFetchMode(PDO::FETCH_OBJ);
+  //fetchALL se tra ve du lieu nhieu hon 1 ket qua
+  $rows = $stmt->fetchAll();
+  // echo "<pre>";
+  // print_r($rows);die();
+  return $rows;
+}
+
+  public function update_products($id, $data){
+  global $conn;
+  $sql = "UPDATE products SET 
+  quantity = '" . $data . "'
+  WHERE id = $id";
+  // print_r($sql);
+  // die();
+  $conn->exec($sql);
+}
+
+  public function all_products(){
+  global $conn;
+  $sql = "SELECT * FROM products";
+  $stmt = $conn->query($sql);
+  //Thiết lập kiểu dữ liệu trả về
+  $stmt->setFetchMode(PDO::FETCH_OBJ);
+  //fetchALL se tra ve du lieu nhieu hon 1 ket qua
+  $rows = $stmt->fetchAll();
+  // echo "<pre>";
+  // print_r($rows);die();
+  return $rows;
+}
 }
