@@ -4,7 +4,7 @@
         //lay tat ca
         public function all(){
             global $conn;
-            $sql = "SELECT * FROM customers";
+            $sql = "SELECT * FROM customers WHERE deleted_at is null";
             $stmt = $conn->query($sql);
             //Thiết lập kiểu dữ liệu trả về
             $stmt->setFetchMode(PDO::FETCH_OBJ);
@@ -70,11 +70,11 @@
         
 
 //         //xoa 1 du lieu
-//         public function delete($id){
-//             global $conn;
-//             $sql = "DELETE FROM categories WHERE id = '$id'";
-//             $conn->exec($sql);
-//     } 
+        public function destroy($id){
+            global $conn;
+            $sql = "DELETE FROM customers WHERE id = '$id'";
+            $conn->exec($sql);
+    } 
 
 
 //      public function sigin($email,$password){

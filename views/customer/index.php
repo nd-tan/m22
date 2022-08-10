@@ -33,7 +33,7 @@ include '../views/layout/sidebar.php';
                                 <th scope="col ">Address</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Phone</th>
-                                <!-- <th scope="col">Email</th> -->
+                                <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <?php foreach ($rows as $key => $item) { ?>
@@ -44,6 +44,10 @@ include '../views/layout/sidebar.php';
                                     <td><?php echo $item->address; ?></td>
                                     <td><?php echo $item->email; ?></td>
                                     <td><?php echo $item->phone; ?></td>
+                                    <td><a href="CustomerController.php?action=delete&id=<?=$item->id?>">Delete</a>
+                                        <a href=""></a>
+                                        <a href=""></a>
+                                    </td>
                                 </tr>
                             </tbody>
                         <?php } ?>
@@ -52,6 +56,6 @@ include '../views/layout/sidebar.php';
             </main>
         </div>
     </div>
-<?php
- include '../views/layout/footer.php' ;
- ?>
+    <?php
+    include '../views/layout/footer.php';
+    ?>
