@@ -19,6 +19,27 @@ class OrderController
         // print_r($rows);
         include_once '../views/order/index.php';
     }
+    public function detail()
+    {
+        $id=$_REQUEST['id'];
+        $obj=new OrderModel;
+        $object=$obj->getOne($id);
+        include_once '../views/order/detail.php';
+    }
+    public function search()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $search = $_POST['search'];
+            $obj = new OrderModel();
+            $object = $obj->search($search);
+            // $obj_cate=$obj->all();
+            // print_r($search);
+            // die();
+            // header("Location: CategoryController.php?action=index");
+
+        }
+        include_once '../views/order/search.php';
+    }
 
     // public function edit()
     // {
@@ -78,12 +99,12 @@ switch ($action) {
     case 'index':
         $objController->index();
         break;
-    // case 'add':
-    //     $objController->add();
-    //     break;
-    // case 'edit':
-    //     $objController->edit();
-    //     break;
+    case 'detail':
+        $objController->detail();
+        break;
+    case 'search':
+        $objController->search();
+        break;
     // case 'delete':
     //     $objController->delete();
     //     break;

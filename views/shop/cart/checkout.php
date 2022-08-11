@@ -137,6 +137,7 @@ $total =0;
                             </ul>
                             <div class="checkout__order__subtotal">Subtotal <span>$<?=$total?></span></div>
                             <div class="checkout__order__total">Total <span>$<?=$total?></span></div>
+                            <input type="hidden" name="total_order" value="<?=$total?>">
                             <!-- <div class="checkout__input__checkbox">
                                 <label for="acc-or">
                                     Create an account?
@@ -146,7 +147,7 @@ $total =0;
                             </div>
                             <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
                                 ut labore et dolore magna aliqua.</p> -->
-                            <div class="checkout__input__checkbox">
+                            <!-- <div class="checkout__input__checkbox">
                                 <label for="payment">
                                     Check Payment
                                     <input type="checkbox" id="payment">
@@ -159,7 +160,7 @@ $total =0;
                                     <input type="checkbox" id="paypal">
                                     <span class="checkmark"></span>
                                 </label>
-                            </div>
+                            </div> -->
                             <button type="submit" class="site-btn">PLACE ORDER</button>
                         </div>
                     </div>

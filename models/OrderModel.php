@@ -14,16 +14,33 @@
             // print_r($sql);die();
             return $rows;
         }
-//         public function getOne($id)
-//         {
-//           global $conn;
-//           $sql = "SELECT * FROM `categories` WHERE id = '$id'";
-//           $stmt = $conn->query($sql);
-//           $stmt->setFetchMode(PDO::FETCH_OBJ);
-//           $rows = $stmt->fetch();
-//         //   print_r($rows);
-//           return $rows;
-//         }
+        public function getOne($id)
+        {
+          global $conn;
+          $sql= "SELECT orders_detail.*,products.name,products.age,products.color,products.price,products.image,products.gender FROM  orders_detail join products on orders_detail.products_id = products.id WHERE orders_detail.orders_id='$id'";
+        //   $sql = "SELECT * FROM `orders` WHERE id = '$id'";
+          $stmt = $conn->query($sql);
+          $stmt->setFetchMode(PDO::FETCH_OBJ);
+          $rows = $stmt->fetchAll();
+        //   print_r($rows);
+          return $rows;
+        }
+        public function search($search){
+            global $conn;
+            $sql = "SELECT * FROM orders 
+            WHERE orders.id LIKE '%$search%'  OR orders.name like '%$search%'  OR orders.last_name like '%$search%' 
+            OR orders.address like '%$search%' OR orders.email like '%$search%' OR orders.country like '%$search%' 
+            OR orders.phone like '%$search%'";
+            $stmt = $conn->query($sql);
+            $stmt->setFetchMode(PDO::FETCH_OBJ);
+            $rows = $stmt->fetchAll();
+            // echo '<pre>';
+            // print_r($search);
+            // die();
+            
+            return $rows;
+      
+          }
 
 //         //lay 1 ket qua theo id
 //         public function find($id){

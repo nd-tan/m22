@@ -28,7 +28,7 @@
         //lay 1 ket qua theo id
         public function find($id){
             global $conn;
-            $sql = "SELECT * FROM products WHERE id = $id";
+            $sql = "SELECT products.*,categories.name as categoryname FROM  products join categories on products.categories_id = categories.id WHERE products.id='$id'";
             $stmt = $conn->query($sql);
             $stmt->setFetchMode(PDO::FETCH_OBJ);
             $row = $stmt->fetch();

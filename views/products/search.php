@@ -20,7 +20,7 @@
                         <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="ProductController.php?action=search" method="post">
                         <div class="input-group">
-                            <input name="search" type="text" value="<?=$search?>" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input name="search" type="text" value="<?php if(isset($search)){echo $search; }else{echo "";}?>" class="form-control bg-light border-0 small" placeholder="Search for..."
                                 aria-label="Search" aria-describedby="basic-addon2" style="left:497px; right: inherit">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit" style="left:497px;">
@@ -42,6 +42,7 @@
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
+                            <?php if(isset($object)) : ?>
                             <?php foreach ($object as $key => $item) { ?>
 
                                 <tbody>
@@ -52,7 +53,7 @@
                                         <td><?php echo $item->color; ?></td>
                                         <td><?php echo $item->gender; ?></td>
                                         <td><?php echo $item->price; ?></td>
-                                        <td><img src="../Img/img/<?php echo $item->image ?>" width="120px" height="120px" alt=""></td>
+                                        <td><img src="../Img/img/<?php echo $item->image ?>" width="100px" height="100px" alt=""></td>
                                         <td width="250px">
                                             <a class="btn btn-success" href="ProductController.php?action=edit&id=<?php echo $item->id ?>">Edit</a>
                                             <a class="btn btn-danger" href="ProductController.php?action=delete&id=<?php echo $item->id ?>" onclick="return confirm('Bạn có chắc muốn xóa không?');">Delete</a>
@@ -60,7 +61,10 @@
                                     </tr>
                                 </tbody>
                             <?php } ?>
-                        </table>
+                            <?php  else : ?>
+                                <label>Selected keywords to search!!</label>
+                            <?php endif; ?>
+                            </table>
                     </div>
                 </main>
             </div>

@@ -119,6 +119,13 @@ class ProductController
         }
         include_once '../views/products/search.php';
     }
+    public function detail()
+    {
+        $id=$_REQUEST['id'];
+        $obj= new ProductModel;
+        $object=$obj->find($id);
+        include_once '../views/products/detail.php';
+    }
 }
 
 //khoi tao doi tuong
@@ -146,6 +153,9 @@ switch ($action) {
         break;
     case 'search':
         $objController->search();
+        break;
+    case 'detail':
+        $objController->detail();
         break;
     default:
         ####

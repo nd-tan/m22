@@ -181,6 +181,7 @@ class CartController
             $phone = $_POST['phone'];
             $email = $_POST['email'];
             $notes = $_POST['notes'];
+            $total_order=$_POST['total_order'];
             $id_customer = $_SESSION['user_id'];
             $updateCustomers = new CartModel;
 
@@ -193,6 +194,7 @@ class CartController
             $data['email'] = $email;
             $data['notes'] = $notes;
             $data['customers_id'] = $id_customer;
+            $data['total_order'] = $total_order;
 
             $products_id = $_POST['id'];
             $quantity = $_POST['quantity'];
@@ -248,6 +250,8 @@ class CartController
                     }
                 }
                 session_unset();
+                // unset($_SESSION['Cart']);
+                // $_SESSION['Cart']='';
                 // session_destroy();
                 header("Location: showController.php?action=index");
             }

@@ -74,9 +74,10 @@ class CartModel
     $email = $data['email'];
     $customers_id = $data['customers_id'];
     $notes = $data['notes'];
+    $total_order = $data['total_order'];
 
-    $sql = " INSERT INTO orders ( name,last_name,address,email,country,phone,customers_id,notes) VALUES 
-    ('$name','$last_name','$address','$email','$country','$phone','$customers_id','$notes')";
+    $sql = " INSERT INTO orders ( name,last_name,address,email,country,phone,customers_id,notes,total_order) VALUES 
+    ('$name','$last_name','$address','$email','$country','$phone','$customers_id','$notes','$total_order')";
     $conn->query($sql);
 }
   public function create_order_detail( $data ){

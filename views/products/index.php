@@ -36,9 +36,9 @@
                                     <th scope="col">Code</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Breed</th>
-                                    <th scope="col">Color</th>
-                                    <th scope="col">Gender</th>
-                                    <th scope="col">Price($)</th>
+                                    <!-- <th scope="col">Color</th>
+                                    <th scope="col">Gender</th> -->
+                                    <!-- <th scope="col">Price($)</th> -->
                                     <th scope="col">Image</th>
                                     <th scope="col">Action</th>
                                 </tr>
@@ -50,13 +50,11 @@
                                         <td width="170px"><?php echo $item->id; ?></td>
                                         <td><?php echo $item->name; ?></td>
                                         <td><?php echo $item->categoryName; ?></td>
-                                        <td><?php echo $item->color; ?></td>
-                                        <td><?php echo $item->gender; ?></td>
-                                        <td><?php echo $item->price; ?></td>
                                         <td><img src="../Img/img/<?php echo $item->image ?>" width="120px" height="120px" alt=""></td>
                                         <td width="250px">
                                             <a class="btn btn-success" href="ProductController.php?action=edit&id=<?php echo $item->id ?>">Edit</a>
                                             <a class="btn btn-danger" href="ProductController.php?action=delete&id=<?php echo $item->id ?>" onclick="return confirm('Bạn có chắc muốn xóa không?');">Delete</a>
+                                            <a class="btn btn-secondary" href="ProductController.php?action=detail&id=<?php echo $item->id ?>">Details</a>
                                         </td>
                                     </tr>
                                 </tbody>

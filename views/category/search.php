@@ -20,7 +20,7 @@ include '../views/layout/sidebar.php';
                     <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="CategoryController.php?action=search" method="post">
                         <div class="input-group">
-                            <input name="search" type="text" value="<?=$search?>" class="form-control bg-light border-0 small" placeholder="Search for..."
+                            <input name="search" type="text" value="<?php if(isset($search)){echo $search; }else{echo "";}?>" class="form-control bg-light border-0 small" placeholder="Search for..."
                                 aria-label="Search" aria-describedby="basic-addon2" style="left:475px; right: inherit">
                             <div class="input-group-append">
                                 <button class="btn btn-primary" type="submit" style="left:475px;">
@@ -37,6 +37,7 @@ include '../views/layout/sidebar.php';
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
+                        <?php if (isset($object)): ?>
                         <?php foreach ($object as $key => $item) { ?>
 
                             <tbody>
@@ -50,7 +51,10 @@ include '../views/layout/sidebar.php';
                                 </tr>
                             </tbody>
                         <?php } ?>
-                    </table>
+                        <?php else : ?>
+                            <label>Selected keywords to search!!</label>
+                        <?php endif; ?>
+                        </table>
                 </div>
             </main>
         </div>
