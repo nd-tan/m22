@@ -50,7 +50,7 @@ include '../views/layout/sidebar.php';
                                     <td><?php echo $item->name; ?></td>
                                     <td><?php echo $item->address; ?></td>
                                     <td><?php echo $item->phone; ?></td>
-                                    <td>$<?php echo $item->total_order; ?></td>
+                                    <td>$<?php echo number_format($item->total_order); ?></td>
                                     <td width="250px">
                                         <a class="btn btn-success" href="OrderController.php?action=detail&id=<?php echo $item->id ?>">Detail</a>
                                     </td>

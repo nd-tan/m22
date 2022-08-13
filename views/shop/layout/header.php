@@ -96,7 +96,7 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i>ádffjhgfds</li>
+                                <li><i class="fa fa-envelope"></i>dogshop247@gmail.com</li>
                                 <li>well come to VShop</li>
                             </ul>
                         </div>
@@ -139,13 +139,13 @@
                     <nav class="header__menu">
                         <ul>
                             <li class="active"><a href="ShowController.php?action=index">Home</a></li>
-                            <li><a href="./shop-grid.html">Shop</a></li>
-                            <li><a href="#">Pages</a>
+                            <!-- <li><a href="./shop-grid.html">Shop</a></li> -->
+                            <li><a href="#">Shop</a>
                                 <ul class="header__menu__dropdown">
-                                    <li><a href="./shop-details.html">Shop Details</a></li>
+                                    <!-- <li><a href="./shop-details.html">Shop Details</a></li> -->
                                     <li><a href="CartController.php?action=index">Shoping Cart</a></li>
                                     <li><a href="CartController.php?action=checkout">Check Out</a></li>
-                                    <li><a href="./blog-details.html">Blog Details</a></li>
+                                    <li><a href="CartController.php?action=orderDetail">Orders Details</a></li>
                                 </ul>
                             </li>
                             <li><a href="./blog.html">Blog</a></li>
@@ -157,10 +157,14 @@
                     <div class="header__cart">
                         <ul>
                             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            <li><a href="CartController.php?action=index"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                         </ul>
-                        
-                        <div class="header__cart__price">item: <span><?php if(isset($total)){echo $total;}else{echo "";}?></span></div>
+                        <?php if(isset($_SESSION['Cart'])) : ?>
+                            <?php {foreach($_SESSION['Cart'] as $key => $item){ $total += $item['price']*$item['quantityCart'];}}?>
+                        <div class="header__cart__price">item: <span><?=$total;?></span></div>
+                        <?php else : ""?>
+                        <?php endif; ?>
+
                     </div>
                 </div>
             </div>

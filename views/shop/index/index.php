@@ -82,7 +82,7 @@ include "./../../views/shop/layout/sidebar.php";
                         </div>
                         <div class="featured__item__text">
                             <h6><a href="#"><?=$item->name?></a></h6>
-                            <h5>$<?=$item->price?></h5>
+                            <h5>$<?=number_format($item->price);?></h5>
                         </div>
                     </div>
                 </div>

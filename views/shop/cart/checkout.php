@@ -135,8 +135,8 @@ $total =0;
                                 <?php endforeach; ?>
                                 <?php endif;?>
                             </ul>
-                            <div class="checkout__order__subtotal">Subtotal <span>$<?=$total?></span></div>
-                            <div class="checkout__order__total">Total <span>$<?=$total?></span></div>
+                            <div class="checkout__order__subtotal">Subtotal <span>$<?=number_format($total);?></span></div>
+                            <div class="checkout__order__total">Total <span>$<?=number_format($total);?></span></div>
                             <input type="hidden" name="total_order" value="<?=$total?>">
                             <!-- <div class="checkout__input__checkbox">
                                 <label for="acc-or">

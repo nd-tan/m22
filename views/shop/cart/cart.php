@@ -41,7 +41,7 @@ $total=0;
                                         <input type="hidden" name="total[]" value="<?=$item['price']*$item['quantityCart'];?>">
                                     </td>
                                     <td class="shoping__cart__price">
-                                        $<?=$item['price'];?>
+                                        $<?=number_format($item['price']);?>
                                     </td>
                                     <td class="">
                                         <div class="">

@@ -249,13 +249,25 @@ class CartController
                         /////////////cập nhật lại số lượng sản phẩm trong kho
                     }
                 }
-                session_unset();
+                // session_unset();
                 // unset($_SESSION['Cart']);
                 // $_SESSION['Cart']='';
                 // session_destroy();
                 header("Location: showController.php?action=index");
             }
         }
+    }
+    public function showOrder_detail()
+    {
+        $cate = new CategoryModel;
+        $catesidebar = $cate->all(); ///hiển thị sidebar
+        $id_customer = $_SESSION['user_id'];
+        $obj=new CartModel;
+        $object=$obj->getOrders($id_customer);
+        // echo "<pre>";
+        // print_r($object);
+        include_once "../../views/shop/cart/orders_detail.php";
+
     }
 }
 $obj = new CartController;
@@ -288,5 +300,8 @@ switch ($action) {
         break;
     case 'placeOrder':
         $obj->placeOrder();
+        break;
+    case 'orderDetail':
+        $obj->showOrder_detail();
         break;
 }

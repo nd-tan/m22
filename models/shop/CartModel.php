@@ -143,4 +143,19 @@ class CartModel
   // print_r($rows);die();
   return $rows;
 }
+public function getOrders($id)
+        {
+          global $conn;
+          $sql= "SELECT orders_detail.*,products.name,products.age,products.color,products.price,products.image,products.gender
+           FROM  products join orders_detail on products.id = orders_detail.products_id 
+           join orders on orders_detail.orders_id = orders.id 
+           join customers on orders.customers_id= customers.id
+           WHERE customers.id ='$id'";
+        //   $sql = "SELECT * FROM `orders` WHERE id = '$id'";
+          $stmt = $conn->query($sql);
+          $stmt->setFetchMode(PDO::FETCH_OBJ);
+          $rows = $stmt->fetchAll();
+        //   print_r($rows);
+          return $rows;
+        }
 }
