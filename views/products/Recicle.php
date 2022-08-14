@@ -1,4 +1,4 @@
-    <?php
+<?php
     //  include '../../../mvc/views/layout/header.php' ;
     //  include '../../../mvc/views/layout/sidebar.php' ;
     include '../views/layout/header.php';
@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <!-- Page Heading -->
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Products</h1>
+            <h1 class="h3 mb-0 text-gray-800">Products Recicle</h1>
             <a class="btn-success"><?= $_SESSION['flash_message'] ?? ''; ?></a>
             <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
         </div>
@@ -17,15 +17,14 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <a class="btn btn-success" href="ProductController.php?action=add">Add Product</a>
-                        <a class="btn btn-warning" href="ProductController.php?action=showRecicle">Recicle</a>
+                        <a class="btn btn-success" href="ProductController.php?action=index">Back To Product</a>
                         <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="ProductController.php?action=search" method="post">
                         <div class="input-group">
                             <input name="search" type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2" style="left:440px; right: inherit">
+                                aria-label="Search" aria-describedby="basic-addon2" style="left:495px; right: inherit">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit" style="left:440px;">
+                                <button class="btn btn-primary" type="submit" style="left:495px;">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -37,14 +36,12 @@
                                     <th scope="col">Code</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">Breed</th>
-                                    <!-- <th scope="col">Color</th>
-                                    <th scope="col">Gender</th> -->
-                                    <!-- <th scope="col">Price($)</th> -->
                                     <th scope="col">Image</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                            <?php foreach ($rows as $key => $item) { ?>
+                            <?php if(isset($object)) : ?>
+                            <?php foreach ($object as $key => $item) { ?>
 
                                 <tbody>
                                     <tr>
@@ -53,13 +50,13 @@
                                         <td><?php echo $item->categoryName; ?></td>
                                         <td><img src="../Img/img/<?php echo $item->image ?>" width="120px" height="120px" alt=""></td>
                                         <td width="250px">
-                                            <a class="btn btn-success" href="ProductController.php?action=edit&id=<?php echo $item->id ?>">Edit</a>
-                                            <a class="btn btn-danger" href="ProductController.php?action=recicle&id=<?php echo $item->id ?>" onclick="return confirm('Bạn có chắc muốn xóa không?');">Delete</a>
-                                            <a class="btn btn-secondary" href="ProductController.php?action=detail&id=<?php echo $item->id ?>">Details</a>
+                                            <a class="btn btn-success" href="ProductController.php?action=Restore&id=<?php echo $item->id ?>"onclick="return confirm('Are you sure you want to restore?');">Restore</a>
+                                            <a class="btn btn-danger" href="ProductController.php?action=recicle&id=<?php echo $item->id ?>" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
                                         </td>
                                     </tr>
                                 </tbody>
                             <?php } ?>
+                            <?php else : ""; endif; ?>
                         </table>
                     </div>
                 </main>

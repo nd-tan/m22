@@ -76,103 +76,11 @@ class CartController
         // print_r($_SESSION['user_id']);
         $obj = new CartModel;
         $object = $obj->getCustomer($_SESSION['user_id']);
-        // echo "<pre>";
-        // print_r($object);
 
-        include_once "../../views/shop/cart/checkout.php";
-    }
-    public function login()
-    {
-        session_destroy();
-        session_start();
-        $CustomerModel = new CartModel();
-        $rows = $CustomerModel->all();
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //ket noi model
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $err = [];
-            if ($email == "") {
-                $err['email'] = "bạn không thể để trống email";
-            }
-            if ($password == "") {
-                $err['password'] = "bạn không thể để trống password";
-            }
-            if (empty($err)) {
-                $check = $CustomerModel->sigin($email, $password);
-                if ($check) {
-                    //chuyen huong ve 
-                    // $_SESSION['admin']=$rows->user_name;
-                    foreach ($rows as $row) {
-                        if ($email == $row->email && $password == $row->password) {
-                            $_SESSION['user_name'] = $row->name;
-                            $_SESSION['user_id'] = $row->id;
-
-                            // print_r($_SESSION['user_name']) ; die();
-                        }
-                    }
-                    header("Location: ShowController.php?action=index");
-                } else {
-                    $err['ep'] = "email hoặc mật khẩu không đúng";
-                }
-            }
-        }
-        include_once "../../views/shop/login.php";
-    }
-    public function register()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $UserModel = new CartModel();
-            $user_name = $_POST['name'];
-            $phone = $_POST['phone'];
-            $address = $_POST['address'];
-            $email = $_POST['email'];
-            $password = md5($_POST['password']);
-            $confirmpassword = md5($_POST['confirmpassword']);
-            $err = [];
-            if ($user_name == "") {
-                $err['name'] = "bạn không thể để trống tên người dùng";
-            }
-            if ($phone == "") {
-                $err['phone'] = "bạn không thể để trống số điện thoại người dùng";
-            }
-            if ($address == "") {
-                $err['address'] = "bạn không thể để trống địa chỉ người dùng";
-            }
-            if ($email == "") {
-                $err['email'] = "bạn không thể để trống email người dùng";
-            }
-            if ($password == "") {
-                $err['password'] = "bạn không thể để trống mật khẩu người dùng";
-            }
-            if ($confirmpassword == "") {
-                $err['confirmpassword'] = "bạn không thể để trống nhập lại mật khẩu người dùng";
-            } else
-                if ($password != $confirmpassword) {
-                $err['pw'] = "mật khẩu nhập lại không đúng";
-            }
-            if (empty($err)) {
-                $UserModel->create($_REQUEST);
-                //         //chuyen huong ve 
-                header("Location: CartController.php?action=login");
-            }
-        }
-
-        include_once "../../views/shop/register.php";
-    }
-
-    public function logout()
-    {
-        header("Location: CartController.php?action=login");
-    }
-    public function placeOrder()
-    {
         !isset($_SESSION['user_name']) == true; /////////chưa login thì khong vào được giỏ hàng
         if (isset($_SESSION['user_name']) == false) {
             header("location:  CartController.php?action=login");
         }
-        // session_destroy();
-        // die();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $_POST['name']; /////////dữ liệu update bảng customers
             $last_name = $_POST['last_name'];
@@ -184,6 +92,14 @@ class CartController
             $total_order = $_POST['total_order'];
             $id_customer = $_SESSION['user_id'];
             $updateCustomers = new CartModel;
+
+            $err = []; /////////xử lý rỗng
+            $fields = ['name', 'last_name', 'country', 'address', 'phone', 'email'];
+            foreach ($fields as $field) {
+                if (empty($_POST[$field])) {
+                    $err[$field] = "You cannot leave " . $field . " blank!";
+                }
+            }
 
             $data = []; ///////////dữ liệu thêm vào bảng orders
             $data['name'] = $name;
@@ -199,21 +115,11 @@ class CartController
             $date = date('Y-m-d H:i');
             $data['date'] = $date;
 
-            $products_id = $_POST['id'];
-            $quantity = $_POST['quantity'];
-            // echo "<pre>";
-            // var_dump($products_id);
-            // die();
+            $products_id = $_POST['id']; ///lấy id và số lượng sản phẩm được mua để cập nhật bảng products
+            $quantity = $_POST['quantity']; ////
+
             $total = $_POST['total'];
 
-
-            $err = []; /////////xử lý rỗng
-            $fields = ['name', 'last_name', 'country', 'address', 'email', 'notes'];
-            foreach ($fields as $field) {
-                if (empty($_POST[$field])) {
-                    $err[$field] = "You can't leave it blank this part";
-                }
-            }
             if (empty($err)) {
                 $updateCus = $updateCustomers->update($id_customer, $_POST); ///update cai thông tin bảng customer
                 $addOrders = $updateCustomers->create_order($data); ///them vao bảng giỏ hàng
@@ -241,31 +147,86 @@ class CartController
                         // die();
 
                         if ($product->id == $item) {
-                            // echo "1";
-                            // echo "<br>";
-                            // echo "kho".$product->quantity;
-                            // echo "<br>";
+
                             $datas['quantity'] = $product->quantity - $quantity[$key];
-                            // echo "<pre>";
-                            // print_r($quantity[$key]);
-                            // echo "mua".$quantity[$key];
-                            // echo "<br>";
-                            // echo "tru xong".$datas['quantity'];
-                            // // die();
                             $row = $updateCustomers->update_products($product->id, $datas['quantity']);
                         }
                     }
                 }
-                // die();
-
-                // session_unset();
-                // unset($_SESSION['Cart']);
-                // $_SESSION['Cart']='';
-                // session_destroy();
                 header("Location: CartController.php?action=orderDetail");
             }
         }
+        include_once "../../views/shop/cart/checkout.php";
     }
+    public function login()
+    {
+        session_destroy();
+        session_start();
+        $CustomerModel = new CartModel();
+        $rows = $CustomerModel->all();
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            //ket noi model
+            $email = $_POST['email'];
+            $password = $_POST['password'];
+            $err = [];
+            if ($email == "") {
+                $err['email'] = "You can't leave it blank this part";
+            }
+            if ($password == "") {
+                $err['password'] = "You can't leave it blank this part";
+            }
+            if (empty($err)) {
+                $check = $CustomerModel->sigin($email, $password);
+                if ($check) {
+                    foreach ($rows as $row) {
+                        if ($email == $row->email && $password == $row->password) {
+                            $_SESSION['user_name'] = $row->name;
+                            $_SESSION['user_id'] = $row->id;
+                        }
+                    }
+                    header("Location: ShowController.php?action=index");
+                } else {
+                    $err['ep'] = "email or password is not correct";
+                }
+            }
+        }
+        include_once "../../views/shop/login.php";
+    }
+    public function register()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $UserModel = new CartModel();
+            $user_name = $_POST['name'];
+            $phone = $_POST['phone'];
+            $address = $_POST['address'];
+            $email = $_POST['email'];
+            $password = md5($_POST['password']);
+            $confirmpassword = md5($_POST['confirmpassword']);
+            $err = []; /////////xử lý rỗng
+            $fields = ['name', 'password', 'confirmpassword', 'address', 'phone', 'email'];
+            foreach ($fields as $field) {
+                if (empty($_POST[$field])) {
+                    $err[$field] = "You cannot leave " . $field . " blank!";
+                }
+            }
+            if ($password != $confirmpassword) {
+                $err['pw'] = "confirm password is not correct";
+            }
+            if (empty($err)) {
+                $UserModel->create($_REQUEST);
+                //         //chuyen huong ve 
+                header("Location: CartController.php?action=login");
+            }
+        }
+
+        include_once "../../views/shop/register.php";
+    }
+
+    public function logout()
+    {
+        header("Location: CartController.php?action=login");
+    }
+
     public function showOrder_detail()
     {
         $cate = new CategoryModel;
@@ -305,9 +266,6 @@ switch ($action) {
         break;
     case 'logout':
         $obj->logout();
-        break;
-    case 'placeOrder':
-        $obj->placeOrder();
         break;
     case 'orderDetail':
         $obj->showOrder_detail();

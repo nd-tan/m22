@@ -32,7 +32,7 @@ class CategoryController
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $_POST['name'];
             if ($name == "") {
-                $err['name_1'] = "You can't leave it blank name this part";
+                $err['name_1'] = "You can't leave name blank!";
             }
             foreach ($rows as $key => $row) {
                 if ($row->name == $name && $id != $row->id) {
@@ -72,7 +72,7 @@ class CategoryController
             $UserModel = new CategoryModel();
             $rows = $UserModel->all();
             if ($name == "") {
-                $err['name_1'] = "You can't leave it blank this part";
+                $err['name_1'] = "You can't leave name blank!";
             }
             foreach ($rows as $row) {
                 if ($row->name == $name) {

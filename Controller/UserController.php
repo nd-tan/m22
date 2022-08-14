@@ -66,18 +66,7 @@ class UserController
     {
         include "../views/index/index.php";
     }
-    // public function customer()
-    // {
-    //     include "../views/customer/index.php";
-    // }
-    // public function order()
-    // {
-    //     include "../views/order/index.php";
-    // }
-    // public function product()
-    // {
-    //     include "../views/products/index.php";
-    // }
+
     public function logout()
     {
 

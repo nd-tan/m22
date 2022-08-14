@@ -45,16 +45,13 @@ class ProductController
             $fields = ['name', 'age', 'color', 'price','gender'];
             foreach ($fields as $field) {
                 if (empty($_POST[$field])) {
-                    $err[$field] = "You can't leave it blank this part";
+                    $err[$field] = "You can't leave ".$field."blank!";
                 }
             }
-          
-
             if($img==""){
                 $_POST['img']=$obj->image;
             }
             if(empty($err)){
-
                 $object->update($id, $_REQUEST);
                 header('Location:ProductController.php?action=index');
             }
@@ -67,8 +64,15 @@ class ProductController
         $id = $_GET['id'];
         $object = new ProductModel();
         $object->delete($id);
-        // print_r($object);
-        // $_SESSION['flash_message'] = "Xóa danh mục thành công";
+        header("Location:ProductController.php?action=index");
+    }
+    public function recicle()
+    {
+        $id = $_GET['id'];
+        $object = new ProductModel();
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $date = date('Y-m-d');
+        $object->recicle($id,$date);
         header("Location:ProductController.php?action=index");
     }
 
@@ -90,7 +94,7 @@ class ProductController
             $fields = ['name', 'age', 'color', 'breed', 'price', 'image','gender'];
             foreach ($fields as $field) {
                 if (empty($_POST[$field])) {
-                    $err[$field] = "You can't leave it blank this part";
+                    $err[$field] = "You can't leave ".$field." blank!";
                 }
             }
             
@@ -126,6 +130,20 @@ class ProductController
         $object=$obj->find($id);
         include_once '../views/products/detail.php';
     }
+    public function showRecicle()
+    {
+        $obj=new ProductModel;
+        $object=$obj->ShowRecicle();
+        include_once '../views/products/Recicle.php';
+    }
+    public function Restore()
+    {
+        $id=$_REQUEST['id'];
+        $obj=new ProductModel;
+        $object=$obj->restore($id);
+        header("Location:ProductController.php?action=showRecicle");
+        include_once '../views/products/Recicle.php';
+    }
 }
 
 //khoi tao doi tuong
@@ -156,6 +174,15 @@ switch ($action) {
         break;
     case 'detail':
         $objController->detail();
+        break;
+    case 'recicle':
+        $objController->recicle();
+        break;
+    case 'showRecicle':
+        $objController->showRecicle();
+        break;
+    case 'Restore':
+        $objController->Restore();
         break;
     default:
         ####

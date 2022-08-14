@@ -21,6 +21,11 @@
     <link rel="stylesheet" href="./../../ogani-master/ogani-master/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="./../../ogani-master/ogani-master/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="./../../ogani-master/ogani-master/css/style.css" type="text/css">
+    <style>
+        span {
+            color: red;
+        }
+    </style>
 </head>
 
 <body>

@@ -3,6 +3,7 @@ include "./../../views/shop/layout/header.php";
 include "./../../views/shop/layout/sidebar.php";
 (isset($_SESSION['cart'])) ? $_SESSION['cart'] : [];
 $total =0;
+// var_dump($err);
 ?>
 
 <!-- Breadcrumb Section End -->
@@ -12,7 +13,7 @@ $total =0;
     <div class="container">
         <div class="checkout__form">
             <h4>Billing Details</h4>
-            <form action="CartController.php?action=placeOrder" method ="post">
+            <form action="" method ="post">
                 <div class="row">
                     <div class="col-lg-8 col-md-6">
                         <?php if(isset($object)):?>
@@ -93,15 +94,11 @@ $total =0;
                         </div>
                         <p>Create an account by entering the information below. If you are a returning customer
                             please login at the top of the page</p> -->
-                        <div class="checkout__input">
+                        <!-- <div class="checkout__input">
                             <p>Account Password<span>*</span></p>
                             <input type="text" name ="password">
-                            <span><?php if(isset($err['password']))
-                                    {
-                                        echo $err['password'];
-                                    } ?>
-                                    </span>
-                        </div>
+                           
+                        </div> -->
                         <!-- <div class="checkout__input__checkbox">
                             <label for="diff-acc">
                                 Ship to a different address?
