@@ -181,7 +181,7 @@ class CartController
             $phone = $_POST['phone'];
             $email = $_POST['email'];
             $notes = $_POST['notes'];
-            $total_order=$_POST['total_order'];
+            $total_order = $_POST['total_order'];
             $id_customer = $_SESSION['user_id'];
             $updateCustomers = new CartModel;
 
@@ -195,11 +195,14 @@ class CartController
             $data['notes'] = $notes;
             $data['customers_id'] = $id_customer;
             $data['total_order'] = $total_order;
+            date_default_timezone_set('Asia/Ho_Chi_Minh');
+            $date = date('Y-m-d H:i');
+            $data['date'] = $date;
 
             $products_id = $_POST['id'];
             $quantity = $_POST['quantity'];
             // echo "<pre>";
-            // print_r($quantity);
+            // var_dump($products_id);
             // die();
             $total = $_POST['total'];
 
@@ -214,9 +217,9 @@ class CartController
             if (empty($err)) {
                 $updateCus = $updateCustomers->update($id_customer, $_POST); ///update cai thông tin bảng customer
                 $addOrders = $updateCustomers->create_order($data); ///them vao bảng giỏ hàng
-                $rows = $updateCustomers->all_orders();///lấy hết bảng order để tìm ra id của đơn hàng mới thêm
+                $rows = $updateCustomers->all_orders(); ///lấy hết bảng order để tìm ra id của đơn hàng mới thêm
                 $max = 0;
-                $data_orders = [];////max là id của đơn hàng mới thêm
+                $data_orders = []; ////max là id của đơn hàng mới thêm
                 foreach ($rows as $item) {
                     if ($item->id > $max) {
                         $max = $item->id;
@@ -228,32 +231,38 @@ class CartController
                     $data_orders['products_id'] = $products_id[$i];
                     $data_orders['total_price'] = $total[$i];
 
-                    $add_order_detail = $updateCustomers->create_order_detail($data_orders);///them vào bảng orders_detail
+                    $add_order_detail = $updateCustomers->create_order_detail($data_orders); ///them vào bảng orders_detail
                 }
-                $products=$updateCustomers->all_products();
-                $datas=[];
-                for($i=0;$i<count($products);$i++)
-                {
-                    if($products[$i]->id==$products_id[$i])
-                    {
-                        // echo $products[$i]->quantity."<br>";//////số lượng trong kho
+                $products = $updateCustomers->all_products(); ///lấy dữ liệu từ bảng products
+                $datas = [];
+                foreach ($products as $product) {
+                    foreach ($products_id as $key => $item) {
+                        // var_dump($product->id == $item);
                         // die();
-                        $datas['quantity']=$products[$i]->quantity - $quantity[$i];
-                        
-                        // echo "<pre>mua";
-                        // print_r($quantity[$i]);////số lượng đã đặt hàng
-                        // echo $datas['quantity']."<br>tru roi";//////số lượng sau khi cập nhật
-                        // echo $products[$i]->id;
-                        // die();
-                        $row=$updateCustomers->update_products($products[$i]->id,$datas['quantity']);
-                        /////////////cập nhật lại số lượng sản phẩm trong kho
+
+                        if ($product->id == $item) {
+                            // echo "1";
+                            // echo "<br>";
+                            // echo "kho".$product->quantity;
+                            // echo "<br>";
+                            $datas['quantity'] = $product->quantity - $quantity[$key];
+                            // echo "<pre>";
+                            // print_r($quantity[$key]);
+                            // echo "mua".$quantity[$key];
+                            // echo "<br>";
+                            // echo "tru xong".$datas['quantity'];
+                            // // die();
+                            $row = $updateCustomers->update_products($product->id, $datas['quantity']);
+                        }
                     }
                 }
+                // die();
+
                 // session_unset();
                 // unset($_SESSION['Cart']);
                 // $_SESSION['Cart']='';
                 // session_destroy();
-                header("Location: showController.php?action=index");
+                header("Location: CartController.php?action=orderDetail");
             }
         }
     }
@@ -262,12 +271,11 @@ class CartController
         $cate = new CategoryModel;
         $catesidebar = $cate->all(); ///hiển thị sidebar
         $id_customer = $_SESSION['user_id'];
-        $obj=new CartModel;
-        $object=$obj->getOrders($id_customer);
+        $obj = new CartModel;
+        $object = $obj->getOrders($id_customer);
         // echo "<pre>";
         // print_r($object);
         include_once "../../views/shop/cart/orders_detail.php";
-
     }
 }
 $obj = new CartController;

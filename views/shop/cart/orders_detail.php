@@ -17,6 +17,7 @@ $total = 0;
             <th scope="col">Gender</th>
             <th scope="col">Price</th>
             <th scope="col">Quantity</th>
+            <th scope="col">Date</th>
             <th scope="col">Image</th>
         </tr>
     </thead>
@@ -30,6 +31,7 @@ $total = 0;
                     <td><?= $item->gender; ?></td>
                     <td>$<?=number_format($item->price) ; ?></td>
                     <td><?= $item->quantity; ?></td>
+                    <td><?= $item->date_add; ?></td>
                     <td><img src="../../Img/img/<?php echo $item->image ?>" width="100px" height="100px" alt=""></td>
 
                 </tr>

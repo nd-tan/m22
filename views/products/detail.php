@@ -29,7 +29,6 @@
                                     <th scope="col">Age</th>
                                     <th scope="col">Price($)</th>
                                     <th scope="col">Quantity</th>
-                                    <th scope="col">Image</th>
                                 </tr>
                             </thead>
                             <?php if(isset($object)): ?>
@@ -43,7 +42,6 @@
                                         <td><?php echo $object->age; ?></td>
                                         <td><?php echo number_format($object->price); ?></td>
                                         <td><?php echo $object->quantity; ?></td>
-                                        <td><img src="../Img/img/<?php echo $object->image ?>" width="120px" height="120px" alt=""></td>
                                     </tr>
                                 </tbody>
                             <?php else : ?>

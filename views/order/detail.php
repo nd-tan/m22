@@ -46,7 +46,6 @@ include '../views/layout/sidebar.php';
                                     <td><?php echo $item->quantity; ?></td>
                                     <td>$<?php echo $item->totalPrice; ?></td>
                                     <td><img src="../Img/img/<?php echo $item->image ?>" width="100px" height="100px" alt=""></td>
-
                                 </tr>
                             </tbody>
                         <?php } ?>

@@ -75,9 +75,10 @@ class CartModel
     $customers_id = $data['customers_id'];
     $notes = $data['notes'];
     $total_order = $data['total_order'];
+    $date_add=$data['date'];
 
-    $sql = " INSERT INTO orders ( name,last_name,address,email,country,phone,customers_id,notes,total_order) VALUES 
-    ('$name','$last_name','$address','$email','$country','$phone','$customers_id','$notes','$total_order')";
+    $sql = " INSERT INTO orders ( name,last_name,address,email,country,phone,customers_id,notes,total_order,date_add) VALUES 
+    ('$name','$last_name','$address','$email','$country','$phone','$customers_id','$notes','$total_order','$date_add')";
     $conn->query($sql);
 }
   public function create_order_detail( $data ){
@@ -143,10 +144,22 @@ class CartModel
   // print_r($rows);die();
   return $rows;
 }
+public function count_products(){
+  global $conn;
+  $sql = "SELECT count(name) FROM products";
+  $stmt = $conn->query($sql);
+  //Thiết lập kiểu dữ liệu trả về
+  $stmt->setFetchMode(PDO::FETCH_OBJ);
+  //fetchALL se tra ve du lieu nhieu hon 1 ket qua
+  $rows = $stmt->fetchAll();
+  // echo "<pre>";
+  // print_r($rows);die();
+  return $rows;
+}
 public function getOrders($id)
         {
           global $conn;
-          $sql= "SELECT orders_detail.*,products.name,products.age,products.color,products.price,products.image,products.gender
+          $sql= "SELECT orders_detail.*,products.name,products.age,products.color,products.price,products.image,products.gender,orders.date_add
            FROM  products join orders_detail on products.id = orders_detail.products_id 
            join orders on orders_detail.orders_id = orders.id 
            join customers on orders.customers_id= customers.id

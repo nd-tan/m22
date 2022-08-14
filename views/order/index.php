@@ -35,6 +35,7 @@ include '../views/layout/sidebar.php';
                                 <th scope="col">Address</th>
                                 <th scope="col">Phone</th>
                                 <th scope="col">Total</th>
+                                <th scope="col">Date</th>
                                 <th scope="col">Action</th>
                                 <!-- <th scope="col">Gender</th>
                             <th scope="col">Price</th>
@@ -51,6 +52,7 @@ include '../views/layout/sidebar.php';
                                     <td><?php echo $item->address; ?></td>
                                     <td><?php echo $item->phone; ?></td>
                                     <td>$<?php echo number_format($item->total_order); ?></td>
+                                    <td><?php echo $item->date_add; ?></td>
                                     <td width="250px">
                                         <a class="btn btn-success" href="OrderController.php?action=detail&id=<?php echo $item->id ?>">Detail</a>
                                     </td>

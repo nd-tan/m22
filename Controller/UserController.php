@@ -11,8 +11,13 @@ class UserController
             header("location:  UserController.php?action=login");
         }
         $UserModel = new UserModel();
-        // global $id;
         $rows = $UserModel->all();
+        ///////////các số liệu tổng hợp
+        $item=new UserModel;
+        $products=$item->totalProducts();
+        $money=$item->totalMoney();
+        $orders=$item->totalOrders();
+        $customers=$item->totalCustomers();
         // $user=$UserModel->find($id);
         include_once '../views/index/index.php';
         // include_once "../views/layout/header.php";
@@ -53,26 +58,26 @@ class UserController
         }
         include_once '../views/users/sigin.php';
     }
-    public function category()
-    {
-        include "../views/category/index.php";
-    }
+    // public function category()
+    // {
+    //     include "../views/category/index.php";
+    // }
     public function home()
     {
         include "../views/index/index.php";
     }
-    public function customer()
-    {
-        include "../views/customer/index.php";
-    }
-    public function order()
-    {
-        include "../views/order/index.php";
-    }
-    public function product()
-    {
-        include "../views/products/index.php";
-    }
+    // public function customer()
+    // {
+    //     include "../views/customer/index.php";
+    // }
+    // public function order()
+    // {
+    //     include "../views/order/index.php";
+    // }
+    // public function product()
+    // {
+    //     include "../views/products/index.php";
+    // }
     public function logout()
     {
 
@@ -130,22 +135,11 @@ if (isset($_REQUEST['action'])) {
 } else {
     $action = 'login';
 }
-// if(isset($_SESSION['user_name']))
-// {
-//     $action='index';
-// }else
-// {
-//     $actin='login';
-// }
-
 switch ($action) {
     case 'login':
-        if(isset($_SESSION['user_name']))
-        {
+        if (isset($_SESSION['user_name'])) {
             header("Location: UserController.php?action=index");
-          
-        }else
-        {
+        } else {
             $objController->login();
         }
         break;
@@ -153,37 +147,15 @@ switch ($action) {
         $objController->index();
         break;
     case 'home':
-        // session_start();
         if (isset($_SESSION['user_name']) == false) {
             header("location:  UserController.php?action=login");
         }
-        // session_destroy();
         $objController->home();
         break;
-    // case 'customer':
-    //     $objController->customer();
-    //     break;
-    // case 'category':
-    //     $objController->category();
-    //     break;
-        // if(isset($_SESSION['user_name']))
-        // {
-        //     header("Location: CategoryController.php?action=index");
-        // }else
-        // {
-        //     $objController->login();
-        // }
-        // break;
-    // case 'order':
-    //     $objController->order();
-    //     break;
-    // case 'product':
-    //     $objController->product();
-    //     break;
     case 'logout':
         session_start();
-            unset($_SESSION["user_name"]);
-        
+        unset($_SESSION["user_name"]);
+
         $objController->logout();
         break;
     case 'register':
