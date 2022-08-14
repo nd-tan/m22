@@ -84,7 +84,7 @@
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="CartController.php?action=login">Have an account? Go to login</a></div>
+                                        <div class="small"><a href="ShowController.php?action=login">Have an account? Go to login</a></div>
                                     </div>
                                 </div>
                             </div>

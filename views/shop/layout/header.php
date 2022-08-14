@@ -119,9 +119,9 @@
                                 <div>Account</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
-                                    <li><a href="CartController.php?action=login">Login</a></li>
-                                    <li><a href="CartController.php?action=logout">Logout</a></li>
-                                    <li><a href="CartController.php?action=register">Register</a></li>
+                                    <li><a href="ShowController.php?action=login">Login</a></li>
+                                    <li><a href="ShowController.php?action=logout">Logout</a></li>
+                                    <li><a href="ShowController.php?action=register">Register</a></li>
                                 </ul>
                             </div>
                             <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?=$_SESSION['user_name']??"" ?></span>

@@ -54,7 +54,7 @@
                                         </form>
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="CartController.php?action=register">Create An Account</a></div>
+                                        <div class="small"><a href="ShowController.php?action=register">Create An Account</a></div>
                                     </div>
                                 </div>
                             </div>
