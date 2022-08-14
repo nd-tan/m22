@@ -78,6 +78,14 @@
                           ?></span>
             </div>
             <div class="mb-3">
+                <label for="disabledTextInput" class="form-label">Quantity</label>
+                <input type="text" name="quantity" id="" class="form-control" placeholder="" value="<?=$obj->quantity; ?>">
+                <span><?php if (isset($err['quantity'])) {
+                            echo $err['quantity'];
+                        }
+                          ?></span>
+            </div>
+            <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Images</label>
                 <input type="file" name="img" id="" class="form-control" placeholder="" value="<?=$obj->image; ?>">
                 <td><img src="../Img/img/<?php echo $obj->image ?>" width="120px" height="120px" alt=""></td>

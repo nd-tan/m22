@@ -94,10 +94,32 @@ class CategoryController
             $search = $_POST['search'];
             $obj = new CategoryModel();
             $object = $obj->search($search);
-            // print_r($search);
-            // die();
         }
         include_once '../views/category/search.php';
+    }
+
+    public function recicle()
+    {
+        $id = $_GET['id'];
+        $object = new CategoryModel();
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $date = date('Y-m-d');
+        $object->recicle($id,$date);
+        header("Location:CategoryController.php?action=index");
+    }
+    public function showRecicle()
+    {
+        $obj=new CategoryModel;
+        $object=$obj->ShowRecicle();
+        include_once '../views/category/recicle.php';
+    }
+    public function Restore()
+    {
+        $id=$_REQUEST['id'];
+        $obj=new CategoryModel;
+        $object=$obj->restore($id);
+        header("Location:CategoryController.php?action=showRecicle");
+        include_once '../views/category/recicle.php';
     }
 }
 //khoi tao doi tuong
@@ -125,6 +147,15 @@ switch ($action) {
         break;
     case 'search':
         $objController->search();
+        break;
+    case 'recicle':
+        $objController->recicle();
+        break;
+    case 'showRecicle':
+        $objController->showRecicle();
+        break;
+    case 'Restore':
+        $objController->Restore();
         break;
     default:
         ####

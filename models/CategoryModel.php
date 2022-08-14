@@ -4,7 +4,7 @@
         //lay tat ca
         public function all(){
             global $conn;
-            $sql = "SELECT * FROM categories ORDER BY id DESC ";
+            $sql = "SELECT * FROM categories WHERE deleted_at IS NULL ORDER BY id DESC ";
             $stmt = $conn->query($sql);
             //Thiết lập kiểu dữ liệu trả về
             $stmt->setFetchMode(PDO::FETCH_OBJ);
@@ -89,5 +89,34 @@
       // die();
       return $rows;
 
+    }
+    public function recicle($id, $date)
+    {
+        global $conn;
+        $sql = "UPDATE categories SET deleted_at = '$date' WHERE id = '$id'";
+        $conn->exec($sql);
+    }
+
+    public function ShowRecicle()
+    {
+        global $conn;
+        $sql = "SELECT * FROM categories WHERE deleted_at  IS NOT Null ORDER BY id DESC";
+        $stmt = $conn->query($sql);
+        //Thiết lập kiểu dữ liệu trả về
+        $stmt->setFetchMode(PDO::FETCH_OBJ);
+        //fetchALL se tra ve du lieu nhieu hon 1 ket qua
+        $rows = $stmt->fetchAll();
+        // echo "<pre>";
+        // print_r($sql);die();
+        return $rows;
+    }
+
+    public function restore($id)
+    {
+        global $conn;
+        $sql = "UPDATE categories SET deleted_at = NULL WHERE id = '$id'";
+        // print_r($sql);
+        // die();
+        $conn->exec($sql);
     }
 }

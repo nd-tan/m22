@@ -58,9 +58,6 @@ switch ($action) {
     case 'search':
         $objController->search();
         break;
-    // case 'edit':
-    //     $objController->edit();
-    //     break;
     case 'delete':
         $objController->delete();
         break;

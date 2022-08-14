@@ -6,7 +6,7 @@ class ProductModel
     public function all()
     {
         global $conn;
-        $sql = "SELECT products.*,categories.name as categoryName FROM products join categories on products.categories_id = categories.id WHERE deleted_at IS Null ORDER BY id DESC";
+        $sql = "SELECT products.*,categories.name as categoryName FROM products join categories on products.categories_id = categories.id WHERE products.deleted_at IS Null ORDER BY id DESC";
         $stmt = $conn->query($sql);
         //Thiết lập kiểu dữ liệu trả về
         $stmt->setFetchMode(PDO::FETCH_OBJ);
@@ -49,9 +49,10 @@ class ProductModel
         $price = $data['price'];
         $image = $data['image'];
         $gender = $data['gender'];
+        $quantity = $data['quantity'];
 
-        $sql = " INSERT INTO products ( name,age,color,categories_id,price,image,gender) VALUES 
-            ('$name','$age','$color','$breed','$price','$image','$gender')";
+        $sql = " INSERT INTO products ( name,age,color,categories_id,price,image,gender,quantity) VALUES 
+            ('$name','$age','$color','$breed','$price','$image','$gender','$quantity')";
         $conn->query($sql);
     }
 
@@ -66,7 +67,8 @@ class ProductModel
             categories_id = '" . $_POST['breed'] . "',
             price = '" . $_POST['price'] . "',
             image = '" . $_POST['img'] . "',
-            gender = '" . $_POST['gender'] . "'
+            gender = '" . $_POST['gender'] . "',
+            quantity = '" . $_POST['quantity'] . "'
             WHERE id = $id";
         // print_r($sql);
         // die();
@@ -107,7 +109,7 @@ class ProductModel
     public function ShowRecicle()
     {
         global $conn;
-        $sql = "SELECT products.*,categories.name as categoryName FROM products join categories on products.categories_id = categories.id WHERE deleted_at  IS NOT Null ORDER BY id DESC";
+        $sql = "SELECT products.*,categories.name as categoryName FROM products join categories on products.categories_id = categories.id WHERE products.deleted_at  IS NOT Null ORDER BY id DESC";
         $stmt = $conn->query($sql);
         //Thiết lập kiểu dữ liệu trả về
         $stmt->setFetchMode(PDO::FETCH_OBJ);

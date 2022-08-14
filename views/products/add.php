@@ -86,6 +86,14 @@
                           ?></span>
             </div>
             <div class="mb-3">
+                <label for="disabledTextInput" class="form-label">Quantity</label>
+                <input type="number" name="quantity" id="" class="form-control" placeholder="" value="<?php if(isset($quantity)){echo $quantity;}  ?>">
+                <span><?php if (isset($err['quantity'])) {
+                            echo $err['quantity'];
+                        }
+                          ?></span>
+            </div>
+            <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Images</label>
                 <input type="file" name="image" id="" class="form-control" placeholder="">
                 <span><?php if (isset($err['image'])) {

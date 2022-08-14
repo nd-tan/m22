@@ -44,9 +44,8 @@ include '../views/layout/sidebar.php';
                                     <td><?php echo $item->address; ?></td>
                                     <td><?php echo $item->email; ?></td>
                                     <td><?php echo $item->phone; ?></td>
-                                    <td><a href="CustomerController.php?action=delete&id=<?=$item->id?>">Delete</a>
-                                        <a href=""></a>
-                                        <a href=""></a>
+                                    <td>
+                                        <a class="btn btn-success" href="CustomerController.php?action=delete&id=<?=$item->id?>" onclick="return confirm('Bạn có chắc muốn xóa không?');">Delete</a>
                                     </td>
                                 </tr>
                             </tbody>

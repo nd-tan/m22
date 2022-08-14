@@ -40,9 +40,10 @@ class ProductController
             $gender = $_POST['gender'];
             $price = $_POST['price'];
             $img=$_POST['img'];
+            $quantity=$_POST['quantity'];
 
             $err=[];
-            $fields = ['name', 'age', 'color', 'price','gender'];
+            $fields = ['name', 'age', 'color', 'price','gender','quantity'];
             foreach ($fields as $field) {
                 if (empty($_POST[$field])) {
                     $err[$field] = "You can't leave ".$field."blank!";
@@ -75,8 +76,7 @@ class ProductController
         $object->recicle($id,$date);
         header("Location:ProductController.php?action=index");
     }
-
-
+    
     public function add()
     {
         $Category = new CategoryModel();
@@ -90,8 +90,9 @@ class ProductController
             $gender = $_POST['gender'];
             $price = $_POST['price'];
             $img = $_POST['image'];
+            $quantity = $_POST['quantity'];
             $err = [];
-            $fields = ['name', 'age', 'color', 'breed', 'price', 'image','gender'];
+            $fields = ['name', 'age', 'color', 'breed', 'price', 'image','gender','quantity'];
             foreach ($fields as $field) {
                 if (empty($_POST[$field])) {
                     $err[$field] = "You can't leave ".$field." blank!";
