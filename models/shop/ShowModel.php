@@ -62,4 +62,31 @@ public function search($search){
   return $rows;
 
 }
+
+public function show($id)
+{
+  global $conn;
+  $sql = "SELECT products.*,categories.id as cate_id FROM products
+  JOIN categories ON products.categories_id=categories.id WHERE categories.id=$id";
+  $stmt = $conn->query($sql);
+  $stmt->setFetchMode(PDO::FETCH_OBJ);
+  $rows = $stmt->fetchAll();
+  // echo '<pre>';
+  // print_r($rows);
+  // die();
+  return $rows;
+}
+public function detail($id)
+{
+  global $conn;
+  $sql = "SELECT products.*,categories.name as cate_name FROM products
+  JOIN categories ON products.categories_id=categories.id WHERE products.id=$id";
+  $stmt = $conn->query($sql);
+  $stmt->setFetchMode(PDO::FETCH_OBJ);
+  $rows = $stmt->fetch();
+  // echo '<pre>';
+  // print_r($rows);
+  // die();
+  return $rows;
+}
 }

@@ -51,7 +51,7 @@ include '../views/layout/sidebar.php';
                         <?php } ?>
                         <?php else : ?>
                             <td>No orders have been selected, please return to the order page!!</td>
-                        <?php endif ?>
+                        <?php endif; ?>
 
                     </table>
 

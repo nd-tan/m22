@@ -86,6 +86,42 @@ class ShowController
     {
         header("Location: ShowController.php?action=login");
     }
+    public function show()
+    {
+        $cate = new CategoryModel;
+        $catesidebar = $cate->all();
+
+        if($_REQUEST['id'] !="")
+        {
+            $id=$_REQUEST['id'];
+            $obj= new showModel;
+            $object=$obj->show($id);
+            // print_r($object);
+            // die();
+            include_once "../../views/shop/cart/show.php";
+        }else
+        {
+        header("Location: ShowController.php?action=index");
+        }
+    }
+    public function product_detail()
+    {
+        $cate = new CategoryModel;
+        $catesidebar = $cate->all();
+        if($_REQUEST['id'] !="")
+        {
+            $id=$_REQUEST['id'];
+            $obj= new showModel;
+            $object=$obj->detail($id);
+            // print_r($object);
+            // die();
+            include_once "../../views/shop/cart/detail_product.php";
+        }else
+        {
+        header("Location: ShowController.php?action=index");
+        }
+
+    }
 }
 $obj = new ShowController;
 if (isset($_REQUEST['action'])) {
@@ -105,5 +141,11 @@ switch ($action) {
         break;
     case 'logout':
         $obj->logout();
+        break;
+    case 'show':
+        $obj->show();
+        break;
+    case 'product_detail':
+        $obj->product_detail();
         break;
 }

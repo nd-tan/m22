@@ -44,6 +44,7 @@ include '../views/layout/sidebar.php';
                             <th scope="col">Status</th> -->
                             </tr>
                         </thead>
+                        <?php if(isset($rows)) : ?>
                         <?php foreach ($rows as $key => $item) { ?>
                             <tbody>
                                 <tr>
@@ -59,6 +60,7 @@ include '../views/layout/sidebar.php';
                                 </tr>
                             </tbody>
                         <?php } ?>
+                        <?php else : echo ""; endif; ?>
 
                     </table>
 

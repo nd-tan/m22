@@ -47,7 +47,7 @@ include '../views/layout/sidebar.php';
                                     <td><?php echo $item->name; ?></td>
                                     <td width="250px">
                                         <a class="btn btn-success" href="CategoryController.php?action=Restore&id=<?php echo $item->id ?>" onclick="return confirm('Are you sure you want to restore?');">Restore</a>
-                                        <a class="btn btn-danger" href="CategoryController.php?action=recicle&id=<?php echo $item->id ?>" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
+                                        <a class="btn btn-danger" href="CategoryController.php?action=delete&id=<?php echo $item->id ?>" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
                                     </td>
                                 </tr>
                             </tbody>

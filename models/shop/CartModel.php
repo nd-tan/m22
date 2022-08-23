@@ -163,7 +163,7 @@ public function getOrders($id)
            FROM  products join orders_detail on products.id = orders_detail.products_id 
            join orders on orders_detail.orders_id = orders.id 
            join customers on orders.customers_id= customers.id
-           WHERE customers.id ='$id'";
+           WHERE customers.id ='$id' ORDER BY id DESC";
         //   $sql = "SELECT * FROM `orders` WHERE id = '$id'";
           $stmt = $conn->query($sql);
           $stmt->setFetchMode(PDO::FETCH_OBJ);

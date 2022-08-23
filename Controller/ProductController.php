@@ -14,10 +14,27 @@ class ProductController
             header("location:  UserController.php?action=login");
         }
         //khoi tao doi tuong model
+        $category_id = new CategoryModel();
+        $category = $category_id->all();
+
+        $obj = new ProductModel();
+        $pagination = $obj->page_1();
+
+        $total_records = $pagination['total_records']; //45
+        $current_page = isset($_GET['page']) ? $_GET['page'] : 1; //2
+        $limit = 5;
+        $total_page = ceil($total_records / $limit);
+        if ($current_page > $total_page) {
+            $current_page = $total_page;
+        } else if ($current_page < 1) {
+            $current_page = 1;
+        }
+        $start = ($current_page - 1) * $limit;
+
+
         $ProductModel = new ProductModel();
-        $rows = $ProductModel->all();
-        $category_id= new CategoryModel();
-        $category=$category_id->all();
+        $rows = $ProductModel->page_2($start,$limit);
+
         // echo "<pre>";
         // print_r($rows);
         include_once '../views/products/index.php';
@@ -25,37 +42,55 @@ class ProductController
 
     public function edit()
     {
-        $id = $_GET['id'];
-        $object = new ProductModel();
-        $obj = $object->getOne($id);
-        $Category = new CategoryModel();//////lấy bảng cate để sổ danh mục trong phần edit
-        $cate = $Category->all();
-        // print_r($cate);
-        // die();
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $name = $_POST['name'];
-            $age = $_POST['age'];
-            $color = $_POST['color'];
-            $breed = $_POST['breed'];
-            $gender = $_POST['gender'];
-            $price = $_POST['price'];
-            $img=$_POST['img'];
-            $quantity=$_POST['quantity'];
+        if (isset($_GET['id'])) {
 
-            $err=[];
-            $fields = ['name', 'age', 'color', 'price','gender','quantity'];
-            foreach ($fields as $field) {
-                if (empty($_POST[$field])) {
-                    $err[$field] = "You can't leave ".$field."blank!";
+            $id = $_GET['id'];
+            $object = new ProductModel();
+            $obj = $object->getOne($id);
+            // print_r($obj->image);
+
+            $Category = new CategoryModel(); //////lấy bảng cate để sổ danh mục trong phần edit
+            $cate = $Category->all();
+            // print_r($cate);
+            // die();
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $name = $_REQUEST['name'];
+                $age = $_REQUEST['age'];
+                $color = $_REQUEST['color'];
+                $breed = $_REQUEST['breed'];
+                $gender = $_REQUEST['gender'];
+                $price = $_REQUEST['price'];
+                // $img=$_REQUEST['img'];
+                $quantity = $_REQUEST['quantity'];
+
+                if (isset($_FILES['image'])) {
+                    $img = $_FILES['image']['name'];
+                    move_uploaded_file($_FILES['image']['tmp_name'], '../Img/img/' . $_FILES['image']['name']);
+                }
+                $_REQUEST['img'] = $img; ///////////request image ấy thông qua FILES chứ k lấy trực tiếp từ request được
+                // print_r($_REQUEST['img']);
+                // print_r($obj->image);
+                // die();
+                $err = [];
+                $fields = ['name', 'age', 'color', 'price', 'gender', 'quantity'];
+                foreach ($fields as $field) {
+                    if (empty($_REQUEST[$field])) {
+                        $err[$field] = "You can't leave " . $field . "blank!";
+                    }
+                }
+                if ($_REQUEST['img'] == "") {
+                    $_REQUEST['img'] = $obj->image;
+                }
+                // print_r($_REQUEST['img']);
+                // print_r($obj->image);
+                // die();
+                if (empty($err)) {
+                    $object->update($id, $_REQUEST);
+                    header('Location:ProductController.php?action=index');
                 }
             }
-            if($img==""){
-                $_POST['img']=$obj->image;
-            }
-            if(empty($err)){
-                $object->update($id, $_REQUEST);
-                header('Location:ProductController.php?action=index');
-            }
+        } else {
+            header('Location:ProductController.php?action=index');
         }
 
         include_once '../views/products/edit.php';
@@ -65,7 +100,7 @@ class ProductController
         $id = $_GET['id'];
         $object = new ProductModel();
         $object->delete($id);
-        header("Location:ProductController.php?action=index");
+        header("Location:ProductController.php?action=showRecicle");
     }
     public function recicle()
     {
@@ -73,32 +108,38 @@ class ProductController
         $object = new ProductModel();
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $date = date('Y-m-d');
-        $object->recicle($id,$date);
+        $object->recicle($id, $date);
         header("Location:ProductController.php?action=index");
     }
-    
+
     public function add()
     {
         $Category = new CategoryModel();
-        $cate = $Category->all();//////lấy bảng cate để sổ danh mục trong phần add
+        $cate = $Category->all(); //////lấy bảng cate để sổ danh mục trong phần add
         $UserModel = new ProductModel();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $name = $_POST['name'];
-            $age = $_POST['age'];
-            $color = $_POST['color'];
-            $breed = $_POST['breed'];
-            $gender = $_POST['gender'];
-            $price = $_POST['price'];
-            $img = $_POST['image'];
-            $quantity = $_POST['quantity'];
+            $name = $_REQUEST['name'];
+            $age = $_REQUEST['age'];
+            $color = $_REQUEST['color'];
+            $breed = $_REQUEST['breed'];
+            $gender = $_REQUEST['gender'];
+            $price = $_REQUEST['price'];
+            // $img = $_REQUEST['image'];
+            $quantity = $_REQUEST['quantity'];
+
+            if (isset($_FILES['image'])) {
+                $image = $_FILES['image']['name'];
+                move_uploaded_file($_FILES['image']['tmp_name'], '../Img/img/' . $_FILES['image']['name']);
+            }
+            $_REQUEST['image'] = $image; ///////////request image ấy thông qua FILES chứ k lấy trực tiếp từ request được
             $err = [];
-            $fields = ['name', 'age', 'color', 'breed', 'price', 'image','gender','quantity'];
+            $fields = ['name', 'age', 'color', 'breed', 'price', 'image', 'gender', 'quantity'];
             foreach ($fields as $field) {
-                if (empty($_POST[$field])) {
-                    $err[$field] = "You can't leave ".$field." blank!";
+                if (empty($_REQUEST[$field])) {
+                    $err[$field] = "You can't leave " . $field . " blank!";
                 }
             }
-            
+
             if (empty($err)) {
                 //ket noi model
                 $UserModel->create($_REQUEST);
@@ -116,7 +157,7 @@ class ProductController
             $search = $_POST['search'];
             $obj = new ProductModel();
             $object = $obj->search($search);
-            $obj_cate=$obj->all();
+            $obj_cate = $obj->all();
             // print_r($search);
             // die();
             // header("Location: CategoryController.php?action=index");
@@ -126,22 +167,22 @@ class ProductController
     }
     public function detail()
     {
-        $id=$_REQUEST['id'];
-        $obj= new ProductModel;
-        $object=$obj->find($id);
+        $id = $_REQUEST['id'];
+        $obj = new ProductModel;
+        $object = $obj->find($id);
         include_once '../views/products/detail.php';
     }
     public function showRecicle()
     {
-        $obj=new ProductModel;
-        $object=$obj->ShowRecicle();
+        $obj = new ProductModel;
+        $object = $obj->ShowRecicle();
         include_once '../views/products/Recicle.php';
     }
     public function Restore()
     {
-        $id=$_REQUEST['id'];
-        $obj=new ProductModel;
-        $object=$obj->restore($id);
+        $id = $_REQUEST['id'];
+        $obj = new ProductModel;
+        $object = $obj->restore($id);
         header("Location:ProductController.php?action=showRecicle");
         include_once '../views/products/Recicle.php';
     }

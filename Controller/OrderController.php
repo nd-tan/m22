@@ -21,10 +21,16 @@ class OrderController
     }
     public function detail()
     {
-        $id = $_REQUEST['id'];
-        $obj = new OrderModel;
-        $object = $obj->getOne($id);
-        include_once '../views/order/detail.php';
+        if(isset($_REQUEST['id']))
+        {
+            $id = $_REQUEST['id'];
+            $obj = new OrderModel;
+            $object = $obj->getOne($id);
+            include_once '../views/order/detail.php';
+        }else
+        {
+            header("location:  OrderController.php?action=index");
+        }
     }
     public function search()
     {

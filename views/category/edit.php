@@ -17,20 +17,21 @@
 <body>
     <div class="container">
         <form method="post" action="">
+            <?php if(isset($obj->name)):?>
             <legend>Edit Category</legend>
-          
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Name</label>
-                <input type="text" name="name" id="" class="form-control" placeholder="" value="<?php echo $obj->name; ?>">
+                <input type="text" name="name" id="" class="form-control" placeholder="" value="<?php echo $obj->name;?>">
                 <span><?php if (isset($err['name_1'])) {
-                            echo $err['name_1'];
-                        }if (isset($err['name'])) {
-                            echo $err['name'];
-                        }
-                          ?></span>
+                    echo $err['name_1'];
+                }if (isset($err['name'])) {
+                    echo $err['name'];
+                }
+                ?></span>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
             <a href="CategoryController.php?action=index" class="btn btn-danger">cancel</a>
+            <?php else : echo ""; endif; ?>
         </form>
     </div>
 </body>

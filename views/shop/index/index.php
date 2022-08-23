@@ -56,16 +56,16 @@ include "./../../views/shop/layout/sidebar.php";
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-title">
-                    <h2>Featured Product</h2>
+                    <h2>All Product</h2>
                 </div>
                 <div class="featured__controls">
-                    <ul>
+                    <!-- <ul>
                         <li class="active" data-filter="*">All</li>
                         <li data-filter=".oranges">Oranges</li>
                         <li data-filter=".fresh-meat">Fresh Meat</li>
                         <li data-filter=".vegetables">Vegetables</li>
                         <li data-filter=".fastfood">Fastfood</li>
-                    </ul>
+                    </ul> -->
                 </div>
             </div>
         </div>
@@ -81,7 +81,7 @@ include "./../../views/shop/layout/sidebar.php";
                             </ul>
                         </div>
                         <div class="featured__item__text">
-                            <h6><a href="#"><?=$item->name?></a></h6>
+                            <h6><a href="ShowController.php?action=product_detail&id=<?=$item->id?>"><?=$item->name?></a></h6>
                             <h5>$<?=number_format($item->price);?></h5>
                         </div>
                     </div>

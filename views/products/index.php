@@ -19,18 +19,16 @@
                     <div class="container-fluid px-4">
                         <a class="btn btn-success" href="ProductController.php?action=add">Add Product</a>
                         <a class="btn btn-warning" href="ProductController.php?action=showRecicle">Recicle</a>
-                        <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="ProductController.php?action=search" method="post">
-                        <div class="input-group">
-                            <input name="search" type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2" style="left:440px; right: inherit">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit" style="left:440px;">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
+                        <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="ProductController.php?action=search" method="post">
+                            <div class="input-group">
+                                <input name="search" type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2" style="left:440px; right: inherit">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit" style="left:440px;">
+                                        <i class="fas fa-search fa-sm"></i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
                         <table class="table table-bordered">
                             <thead class="thead-dark">
                                 <tr>
@@ -61,10 +59,31 @@
                                 </tbody>
                             <?php } ?>
                         </table>
+                        <div class="container">
+                            <!-- <nav class="pagination"> -->
+                            <div class="pagination">
+                                <?php
+                                if ($current_page > 1 && $total_page > 1) {
+                                    echo '<a href="ProductController.php?action=index&page=' . ($current_page - 1) . '">Prev</a>';
+                                }
+                                for ($i = 1; $i <= $total_page; $i++) {
+                                    if ($i == $current_page) {
+                                        echo '<a class="active">' . $i . '</a>';
+                                    } else {
+                                        echo '<a href="ProductController.php?action=index&page=' . $i . '">' . $i . '</a>';
+                                    }
+                                }
+                                if ($current_page < $total_page && $total_page > 1) {
+                                    echo '<a href="ProductController.php?action=index&page=' . ($current_page + 1) . '">Next</a>';
+                                }
+                                ?>
+                            </div>
+                            <!-- </nav> -->
+                        </div>
                     </div>
                 </main>
             </div>
         </div>
-<?php
- include '../views/layout/footer.php' ;
- ?>
+        <?php
+        include '../views/layout/footer.php';
+        ?>

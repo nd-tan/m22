@@ -3,10 +3,27 @@ include_once 'db.php';
 class ProductModel
 {
     //lay tat ca
+    public function page_2($start,$limit)
+    {
+        global $conn;
+        $sql = "SELECT products.*,categories.name as categoryName 
+        FROM products join categories on products.categories_id = categories.id 
+        WHERE products.deleted_at IS Null ORDER BY id DESC LIMIT $start, $limit;";
+        $stmt = $conn->query($sql);
+        //Thiết lập kiểu dữ liệu trả về
+        $stmt->setFetchMode(PDO::FETCH_OBJ);
+        //fetchALL se tra ve du lieu nhieu hon 1 ket qua
+        $rows = $stmt->fetchAll();
+        // echo "<pre>";
+        // print_r($sql);die();
+        return $rows;
+    }
     public function all()
     {
         global $conn;
-        $sql = "SELECT products.*,categories.name as categoryName FROM products join categories on products.categories_id = categories.id WHERE products.deleted_at IS Null ORDER BY id DESC";
+        $sql = "SELECT products.*,categories.name as categoryName 
+        FROM products join categories on products.categories_id = categories.id 
+        WHERE products.deleted_at IS Null ORDER BY id DESC ";
         $stmt = $conn->query($sql);
         //Thiết lập kiểu dữ liệu trả về
         $stmt->setFetchMode(PDO::FETCH_OBJ);
@@ -61,14 +78,14 @@ class ProductModel
     {
         global $conn;
         $sql = "UPDATE products SET 
-            name = '" . $_POST['name'] . "',
-            age = '" . $_POST['age'] . "',
-            color = '" . $_POST['color'] . "',
-            categories_id = '" . $_POST['breed'] . "',
-            price = '" . $_POST['price'] . "',
-            image = '" . $_POST['img'] . "',
-            gender = '" . $_POST['gender'] . "',
-            quantity = '" . $_POST['quantity'] . "'
+            name = '" . $data['name'] . "',
+            age = '" . $data['age'] . "',
+            color = '" . $data['color'] . "',
+            categories_id = '" . $data['breed'] . "',
+            price = '" . $data['price'] . "',
+            image = '" . $data['img'] . "',
+            gender = '" . $data['gender'] . "',
+            quantity = '" . $data['quantity'] . "'
             WHERE id = $id";
         // print_r($sql);
         // die();
@@ -127,5 +144,14 @@ class ProductModel
         // print_r($sql);
         // die();
         $conn->exec($sql);
+    }
+    public function page_1()
+    {
+        global $conn;
+        $sql = "SELECT COUNT(id) AS total_records FROM products";
+        $stmt = $conn->query($sql);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $pagination = $stmt->fetch();
+        return $pagination;
     }
 }

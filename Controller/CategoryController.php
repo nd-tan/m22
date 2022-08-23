@@ -23,30 +23,38 @@ class CategoryController
 
     public function edit()
     {
-        $id = $_GET['id'];
-        $err = [];
-        $object = new CategoryModel();
+        if(isset($_GET['id']))
+        {
 
-        $obj = $object->getOne($id);
-        $rows = $object->all();
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $name = $_POST['name'];
-            if ($name == "") {
-                $err['name_1'] = "You can't leave name blank!";
-            }
-            foreach ($rows as $key => $row) {
-                if ($row->name == $name && $id != $row->id) {
-                    $err['name'] = "Category already exists";
+            $id = $_GET['id'];
+            $err = [];
+            $object = new CategoryModel();
+    
+            $obj = $object->getOne($id);
+            $rows = $object->all();
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $name = $_POST['name'];
+                if ($name == "") {
+                    $err['name_1'] = "You can't leave name blank!";
+                }
+                foreach ($rows as $key => $row) {
+                    if ($row->name == $name && $id != $row->id) {
+                        $err['name'] = "Category already exists";
+                    }
+                }
+                if (empty($err)) {
+                    $object->update($id, $_REQUEST);
+                    // echo '<pre>';
+                    // print_r($_REQUEST);
+                    // die();
+                    // $_SESSION['flash_message'] = "Chỉnh sửa danh mục thành công";
+                    header('Location:CategoryController.php?action=index');
                 }
             }
-            if (empty($err)) {
-                $object->update($id, $_REQUEST);
-                // echo '<pre>';
-                // print_r($_REQUEST);
-                // die();
-                // $_SESSION['flash_message'] = "Chỉnh sửa danh mục thành công";
-                header('Location:CategoryController.php?action=index');
-            }
+        }else
+        {
+            header('Location:CategoryController.php?action=index');
+
         }
 
         include_once '../views/category/edit.php';
@@ -58,7 +66,7 @@ class CategoryController
         $object->delete($id);
         // print_r($object);
         // $_SESSION['flash_message'] = "Xóa danh mục thành công";
-        header("Location: CategoryController.php?action=index");
+        header("Location: CategoryController.php?action=showRecicle");
     }
 
 
