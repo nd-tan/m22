@@ -92,7 +92,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="disabledTextInput" class="form-label">Quantity</label>
-                    <input type="text" name="quantity" id="" class="form-control" placeholder="" value="<?php echo $obj->quantity; ?>">
+                    <input type="number" name="quantity" id="" class="form-control" placeholder="" value="<?php echo $obj->quantity; ?>">
                     <span><?php if (isset($err['quantity'])) {
                                 echo $err['quantity'];
                             }

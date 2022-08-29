@@ -4,7 +4,7 @@ class ShowModel
 {
     public function all(){
         global $conn;
-        $sql = "SELECT * FROM products";
+        $sql = "SELECT * FROM products WHERE quantity >0 AND deleted_at IS NULL";
         $stmt = $conn->query($sql);
         //Thiết lập kiểu dữ liệu trả về
         $stmt->setFetchMode(PDO::FETCH_OBJ);
@@ -67,7 +67,7 @@ public function show($id)
 {
   global $conn;
   $sql = "SELECT products.*,categories.id as cate_id FROM products
-  JOIN categories ON products.categories_id=categories.id WHERE categories.id=$id";
+  JOIN categories ON products.categories_id=categories.id WHERE categories.id=$id AND products.deleted_at IS NULL";
   $stmt = $conn->query($sql);
   $stmt->setFetchMode(PDO::FETCH_OBJ);
   $rows = $stmt->fetchAll();
