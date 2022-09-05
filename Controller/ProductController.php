@@ -97,10 +97,21 @@ class ProductController
     }
     public function delete()
     {
-        $id = $_GET['id'];
-        $object = new ProductModel();
-        $object->delete($id);
-        header("Location:ProductController.php?action=showRecicle");
+        if(isset($_GET['id']))
+        {
+            $id = $_GET['id'];
+            $object = new ProductModel();
+            $obj=$object->count_order($id);
+                if($obj['soluong'] >0)
+                {
+                    $err['delete']="This product is in orders, so can't delete!!";
+                }else
+                {
+                    $object->delete($id);
+                    header("Location:ProductController.php?action=showRecicle");
+                }
+        }
+        include_once '../views/products/Recicle.php';
     }
     public function recicle()
     {
@@ -167,9 +178,12 @@ class ProductController
     }
     public function detail()
     {
-        $id = $_REQUEST['id'];
-        $obj = new ProductModel;
-        $object = $obj->find($id);
+        if(isset($_REQUEST['id']))
+        {
+            $id = $_REQUEST['id'];
+            $obj = new ProductModel;
+            $object = $obj->find($id);
+        }
         include_once '../views/products/detail.php';
     }
     public function showRecicle()
@@ -180,10 +194,13 @@ class ProductController
     }
     public function Restore()
     {
-        $id = $_REQUEST['id'];
-        $obj = new ProductModel;
-        $object = $obj->restore($id);
-        header("Location:ProductController.php?action=showRecicle");
+        if(isset($_REQUEST['id']))
+        {
+            $id = $_REQUEST['id'];
+            $obj = new ProductModel;
+            $object = $obj->restore($id);
+            header("Location:ProductController.php?action=showRecicle");
+        }
         include_once '../views/products/Recicle.php';
     }
 }

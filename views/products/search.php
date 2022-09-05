@@ -52,7 +52,7 @@
                                         <td><?php echo $item->categoryName; ?></td>
                                         <td><?php echo $item->color; ?></td>
                                         <td><?php echo $item->gender; ?></td>
-                                        <td><?php echo $item->price; ?></td>
+                                        <td><?php echo number_format($item->price); ?></td>
                                         <td><img src="../Img/img/<?php echo $item->image ?>" width="100px" height="100px" alt=""></td>
                                         <td width="250px">
                                             <a class="btn btn-success" href="ProductController.php?action=edit&id=<?php echo $item->id ?>">Edit</a>

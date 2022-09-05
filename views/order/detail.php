@@ -35,10 +35,10 @@ include '../views/layout/sidebar.php';
                             </tr>
                         </thead>
                         <?php if(isset($object)): ?>
-                        <?php foreach ($object as $item) { ?>
+                        <?php foreach ($object as $key => $item) { ?>
                             <tbody>
                                 <tr>
-                                    <td><?php echo $item->orders_id; ?></td>
+                                    <td><?php echo $key+1; ?></td>
                                     <td><?php echo $item->name; ?></td>
                                     <td><?php echo $item->color; ?></td>
                                     <td><?php echo $item->gender; ?></td>

@@ -45,7 +45,7 @@
 
                                 <tbody>
                                     <tr>
-                                        <td width="170px"><?php echo $item->id; ?></td>
+                                        <td width="170px"><?php echo $key +1; ?></td>
                                         <td><?php echo $item->name; ?></td>
                                         <td><?php echo $item->categoryName; ?></td>
                                         <td><img src="../Img/img/<?php echo $item->image ?>" width="120px" height="120px" alt=""></td>
@@ -58,6 +58,7 @@
                             <?php } ?>
                             <?php else : ""; endif; ?>
                         </table>
+                        <?php if(isset($err['delete'])) { echo $err['delete']; }else {echo "";} ?>
                     </div>
                 </main>
             </div>

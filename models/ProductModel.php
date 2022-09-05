@@ -155,4 +155,15 @@ class ProductModel
         $pagination = $stmt->fetch();
         return $pagination;
     }
+    public function count_order($id)
+    {
+        global $conn;
+        $sql = "SELECT COUNT(orders_detail.id) as soluong, products.name
+        FROM products JOIN orders_detail ON products.id=orders_detail.products_id
+        WHERE products.id='$id'";
+        $stmt = $conn->query($sql);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $rows = $stmt->fetch();
+        return $rows;
+    }
 }
