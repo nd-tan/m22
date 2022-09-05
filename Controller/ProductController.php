@@ -23,7 +23,7 @@ class ProductController
         $total_records = $pagination['total_records']; //45
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1; //2
         $limit = 5;
-        $total_page = ceil($total_records / $limit);
+        $total_page = floor($total_records / $limit);
         if ($current_page > $total_page) {
             $current_page = $total_page;
         } else if ($current_page < 1) {

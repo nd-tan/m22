@@ -119,4 +119,18 @@
         // die();
         $conn->exec($sql);
     }
+    public function count_product($id)
+    {
+      global $conn;
+      $sql = "SELECT categories.*, count(products.id) AS soluong FROM categories JOIN products ON categories.id=products.categories_id
+      WHERE categories.id='$id' GROUP BY categories.name";
+      $stmt = $conn->query($sql);
+      //Thiết lập kiểu dữ liệu trả về
+      $stmt->setFetchMode(PDO::FETCH_OBJ);
+      //fetchALL se tra ve du lieu nhieu hon 1 ket qua
+      $rows = $stmt->fetchAll();
+      // echo "<pre>";
+      // print_r($sql);die();
+      return $rows;
+    }
 }

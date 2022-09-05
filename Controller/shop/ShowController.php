@@ -122,6 +122,19 @@ class ShowController
         }
 
     }
+    public function search()
+    {
+        $cate = new CategoryModel;
+        $catesidebar = $cate->all();
+        $obj=new showModel;
+        if(isset($_REQUEST['search']))
+        {
+            $search=$_REQUEST['search'];
+            $object=$obj->search_2($search);
+
+        }
+        include_once "../../views/shop/cart/search.php";
+    }
 }
 $obj = new ShowController;
 if (isset($_REQUEST['action'])) {
@@ -147,5 +160,8 @@ switch ($action) {
         break;
     case 'product_detail':
         $obj->product_detail();
+        break;
+    case 'search':
+        $obj->search();
         break;
 }

@@ -46,14 +46,14 @@
 
                                 <tbody>
                                     <tr>
-                                        <td width="170px"><?php echo $item->id; ?></td>
+                                        <td width="170px"><?php echo $key+1; ?></td>
                                         <td><?php echo $item->name; ?></td>
                                         <td><?php echo $item->categoryName; ?></td>
                                         <td><img src="../Img/img/<?php echo $item->image ?>" width="120px" height="120px" alt=""></td>
                                         <td width="250px">
-                                            <a class="btn btn-success" href="ProductController.php?action=edit&id=<?php echo $item->id ?>">Edit</a>
-                                            <a class="btn btn-danger" href="ProductController.php?action=recicle&id=<?php echo $item->id ?>" onclick="return confirm('Bạn có chắc muốn xóa không?');">Delete</a>
-                                            <a class="btn btn-secondary" href="ProductController.php?action=detail&id=<?php echo $item->id ?>">Details</a>
+                                            <a class="btn " href="ProductController.php?action=edit&id=<?php echo $item->id ?>"><i class="bi bi-pencil-square h4" style="color:blue"></i></a>
+                                            <a class="btn " href="ProductController.php?action=recicle&id=<?php echo $item->id ?>" onclick="return confirm('Bạn có chắc muốn xóa không?');"><i class="bi bi-trash h4" style="color:red"></i></a>
+                                            <a class="btn " href="ProductController.php?action=detail&id=<?php echo $item->id ?>"><i class="bi bi-eye h4" style="color:chocolate"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>

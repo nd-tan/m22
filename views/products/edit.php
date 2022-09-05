@@ -1,31 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+    //  include '../../../mvc/views/layout/header.php' ;
+    //  include '../../../mvc/views/layout/sidebar.php' ;
+    include '../views/layout/header.php';
+    include '../views/layout/sidebar.php';
+    //  session_start();
+    ?>
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Edit Product</h1>
+            <a class="btn-success"><?= $_SESSION['flash_message'] ?? ''; ?></a>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        span {
-            color: red;
-        }
-    </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-</head>
-
-<body>
-    <div class="container">
-        <form method="post" action="" enctype="multipart/form-data">
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_content">
+            <form method="post" action="" enctype="multipart/form-data">
             <?php if (isset($obj->name)) : ?>
-                <legend>Edit Product</legend>
 
                 <div class="mb-3">
                     <label for="disabledTextInput" class="form-label">Name</label>
                     <input type="text" name="name" id="" class="form-control" placeholder="" value="<?php echo $obj->name; ?>">
-                    <span><?php if (isset($err['name'])) {
+                    <span style="color:red"><?php if (isset($err['name'])) {
                                 echo $err['name'];
                             }
                             ?></span>
@@ -33,7 +29,7 @@
                 <div class="mb-3">
                     <label for="disabledTextInput" class="form-label">Age</label>
                     <input type="text" name="age" id="" class="form-control" placeholder="" value="<?php echo $obj->age; ?>">
-                    <span><?php if (isset($err['age'])) {
+                    <span style="color:red"><?php if (isset($err['age'])) {
                                 echo $err['age'];
                             }
                             ?></span>
@@ -41,7 +37,7 @@
                 <div class="mb-3">
                     <label for="disabledTextInput" class="form-label">Color</label>
                     <input type="text" name="color" id="" class="form-control" placeholder="" value="<?php echo $obj->color; ?>">
-                    <span><?php if (isset($err['color'])) {
+                    <span style="color:red"><?php if (isset($err['color'])) {
                                 echo $err['color'];
                             }
                             ?></span>
@@ -58,7 +54,7 @@
                             endif; ?>
                         <?php else : "";
                         endif; ?>
-                        <span><?php if (isset($err['breed'])) {
+                        <span style="color:red"><?php if (isset($err['breed'])) {
                                     echo $err['breed'];
                                 }
                                 ?></span>
@@ -78,14 +74,14 @@
                                                                                                     };  ?> />Bitch
                     <label class="form-check-label" for="inlineRadio2"></label>
                 </div><br>
-                <span><?php if (isset($errors['gender'])) {
+                <span style="color:red"><?php if (isset($errors['gender'])) {
                             echo $errors['gender'];
                         }
                         ?></span>
                 <div class="mb-3">
                     <label for="disabledTextInput" class="form-label">Price($)</label>
                     <input type="text" name="price" id="" class="form-control" placeholder="" value="<?php echo $obj->price; ?>">
-                    <span><?php if (isset($err['price'])) {
+                    <span style="color:red"><?php if (isset($err['price'])) {
                                 echo $err['price'];
                             }
                             ?></span>
@@ -93,7 +89,7 @@
                 <div class="mb-3">
                     <label for="disabledTextInput" class="form-label">Quantity</label>
                     <input type="number" name="quantity" id="" class="form-control" placeholder="" value="<?php echo $obj->quantity; ?>">
-                    <span><?php if (isset($err['quantity'])) {
+                    <span style="color:red"><?php if (isset($err['quantity'])) {
                                 echo $err['quantity'];
                             }
                             ?></span>
@@ -101,10 +97,10 @@
                 <div class="mb-3">
                     <label for="disabledTextInput" class="form-label">Images</label><br>
                     <!-- <input type="file" name="img" id="" class="form-control" placeholder="" value=""> -->
-                    <td><img src="../Img/img/<?php echo $obj->image ?>" width="90px" height="90px" alt=""></td><br>
+
                     <input accept="image/*" type='file' id="imgInp" name="image" /><br><br>
-                    <img type="hidden" width="90px" height="90px" id="blah" src="#" alt="" /> <br>
-                    <span><?php if (isset($err['img'])) {
+                    <img type="hidden" width="90px" height="90px" id="blah" src="../Img/img/<?php echo $obj->image ?>" alt="" /> <br>
+                    <span style="color:red"><?php if (isset($err['img'])) {
                                 echo $err['img'];
                             }
                             ?></span>
@@ -116,9 +112,9 @@
         </form>
         <script>
             jQuery(document).ready(function() {
-                $('#blah').hide();
+                // $('#blah').hide();
                 jQuery('#imgInp').change(function() {
-                    $('#blah').show();
+                    // $('#blah').show();
                     const file = jQuery(this)[0].files;
                     if (file[0]) {
                         jQuery('#blah').attr('src', URL.createObjectURL(file[0]));
@@ -126,7 +122,15 @@
                 });
             });
         </script>
-    </div>
-</body>
+            </div>
+        </div>
+        <?php
+        include '../views/layout/footer.php';
+        ?>
 
-</html>
+
+
+
+
+
+

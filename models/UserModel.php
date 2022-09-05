@@ -27,15 +27,15 @@ class UserModel
   }
 
   //lay 1 ket qua theo id
-  public function find($id)
-  {
-    global $conn;
-    $sql = "SELECT * FROM c10_khach_hang WHERE id = $id";
-    $stmt = $conn->query($sql);
-    $stmt->setFetchMode(PDO::FETCH_OBJ);
-    $row = $stmt->fetch();
-    return $row;
-  }
+  // public function find($id)
+  // {
+  //   global $conn;
+  //   $sql = "SELECT * FROM c10_khach_hang WHERE id = $id";
+  //   $stmt = $conn->query($sql);
+  //   $stmt->setFetchMode(PDO::FETCH_OBJ);
+  //   $row = $stmt->fetch();
+  //   return $row;
+  // }
 
   //them moi du lieu
   public function create($data)

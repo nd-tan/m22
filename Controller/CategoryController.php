@@ -63,10 +63,22 @@ class CategoryController
     {
         $id = $_GET['id'];
         $object = new CategoryModel();
-        $object->delete($id);
-        // print_r($object);
-        // $_SESSION['flash_message'] = "Xóa danh mục thành công";
-        header("Location: CategoryController.php?action=showRecicle");
+        $item=$object->count_product($id);
+        $err=[];
+        if(empty($item)){
+            $object->delete($id);
+            header("Location: CategoryController.php?action=showRecicle");
+        }
+        foreach($item as $value)
+        {
+
+            if($value->soluong > 0)
+            {
+                $err['delete']="this category have a lot of products, so can't delete!!";
+            }
+        }
+        include_once '../views/category/recicle.php';
+
     }
 
 
@@ -90,6 +102,10 @@ class CategoryController
             if (empty($err)) {
                 $UserModel->create($_REQUEST);
                 //chuyen huong ve 
+                $notification = array(
+                    'message' => 'Thêm danh mục thành công',
+                    'alert-type' => 'success'
+                );
                 header("Location: CategoryController.php?action=index");
             }
         }

@@ -67,7 +67,8 @@ public function show($id)
 {
   global $conn;
   $sql = "SELECT products.*,categories.id as cate_id FROM products
-  JOIN categories ON products.categories_id=categories.id WHERE categories.id=$id AND products.deleted_at IS NULL";
+  JOIN categories ON products.categories_id=categories.id 
+  WHERE categories.id=$id AND products.deleted_at IS NULL AND categories.deleted_at IS NULL";
   $stmt = $conn->query($sql);
   $stmt->setFetchMode(PDO::FETCH_OBJ);
   $rows = $stmt->fetchAll();
@@ -84,6 +85,21 @@ public function detail($id)
   $stmt = $conn->query($sql);
   $stmt->setFetchMode(PDO::FETCH_OBJ);
   $rows = $stmt->fetch();
+  // echo '<pre>';
+  // print_r($rows);
+  // die();
+  return $rows;
+}
+public function search_2($search)
+{
+  global $conn;
+  $sql = "SELECT products.*, categories.name as name_cate 
+  FROM products JOIN categories ON products.categories_id=categories.id
+  WHERE ( products.name LIKE '%$search%' OR age LIKE '%$search%' OR color LIKE '%$search%' OR price LIKE '%$search%' OR gender LIKE '%$search%' OR categories.name LIKE '%$search%')
+   AND products.deleted_at IS NULL AND categories.deleted_at IS NULL";
+  $stmt = $conn->query($sql);
+  $stmt->setFetchMode(PDO::FETCH_OBJ);
+  $rows = $stmt->fetchAll();
   // echo '<pre>';
   // print_r($rows);
   // die();

@@ -47,7 +47,7 @@
 
                                 <tbody>
                                     <tr>
-                                        <td width="170px"><?php echo $item->id; ?></td>
+                                        <td width="170px"><?php echo $key+1; ?></td>
                                         <td><?php echo $item->name; ?></td>
                                         <td><?php echo $item->categoryName; ?></td>
                                         <td><?php echo $item->color; ?></td>

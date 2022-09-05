@@ -22,9 +22,9 @@
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="ProductController.php?action=search" method="post">
                         <div class="input-group">
                             <input name="search" type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2" style="left:495px; right: inherit">
+                                aria-label="Search" aria-describedby="basic-addon2" style="left:615px; right: inherit">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit" style="left:495px;">
+                                <button class="btn btn-primary" type="submit" style="left:615px;">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -50,8 +50,8 @@
                                         <td><?php echo $item->categoryName; ?></td>
                                         <td><img src="../Img/img/<?php echo $item->image ?>" width="120px" height="120px" alt=""></td>
                                         <td width="250px">
-                                            <a class="btn btn-success" href="ProductController.php?action=Restore&id=<?php echo $item->id ?>"onclick="return confirm('Are you sure you want to restore?');">Restore</a>
-                                            <a class="btn btn-danger" href="ProductController.php?action=delete&id=<?php echo $item->id ?>" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
+                                            <a class="btn" href="ProductController.php?action=Restore&id=<?php echo $item->id ?>"onclick="return confirm('Are you sure you want to restore?');"><i class="bi bi-arrow-counterclockwise h4" style="color:blue"></i></a>
+                                            <a class="btn" href="ProductController.php?action=delete&id=<?php echo $item->id ?>" onclick="return confirm('Are you sure you want to delete?');"><i class="bi bi-trash h3" style="color:red"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>

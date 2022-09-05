@@ -1,32 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+    //  include '../../../mvc/views/layout/header.php' ;
+    //  include '../../../mvc/views/layout/sidebar.php' ;
+    include '../views/layout/header.php';
+    include '../views/layout/sidebar.php';
+    //  session_start();
+    ?>
+    <div class="container-fluid">
+        <!-- Page Heading -->
+        <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800">Add Product</h1>
+            <a class="btn-success"><?= $_SESSION['flash_message'] ?? ''; ?></a>
+            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+        </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        span {
-            color: red;
-        }
-    </style>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-</head>
-
-<body>
-    <div class="container">
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_content">
         <form method="post" action="" enctype="multipart/form-data">
-            <legend>Add Product</legend>
 
             <div class="mb-3">
                 <label for="disabledTextInput">Name</label>
                 <input type="text" name="name" id="" class="form-control" placeholder="" value="<?php if (isset($name)) {
                                                                                                     echo $name;
                                                                                                 }  ?>">
-                <span><?php if (isset($err['name'])) {
+                <span style="color:red"><?php if (isset($err['name'])) {
                             echo $err['name'];
                         }
                         ?></span>
@@ -36,7 +32,7 @@
                 <input type="text" name="age" id="" class="form-control" placeholder="" value="<?php if (isset($age)) {
                                                                                                     echo $age;
                                                                                                 }  ?>">
-                <span><?php if (isset($err['age'])) {
+                <span style="color:red"><?php if (isset($err['age'])) {
                             echo $err['age'];
                         }
                         ?></span>
@@ -46,7 +42,7 @@
                 <input type="text" name="color" id="" class="form-control" placeholder="" value="<?php if (isset($color)) {
                                                                                                         echo $color;
                                                                                                     }  ?>">
-                <span><?php if (isset($err['color'])) {
+                <span style="color:red"><?php if (isset($err['color'])) {
                             echo $err['color'];
                         }
                         ?></span>
@@ -65,7 +61,7 @@
                         <?php  } ?><br>
                     <?php else : "";
                     endif; ?>
-                    <span><?php if (isset($err['breed'])) {
+                    <span style="color:red"><?php if (isset($err['breed'])) {
                                 echo $err['breed'];
                             }
                             ?></span>
@@ -83,7 +79,7 @@
                 <input class="form-check-input" type="radio" name="gender" id="" value="Bitch" />Bitch
                 <label class="form-check-label" for="inlineRadio2"></label>
             </div><br>
-            <span><?php if (isset($err['gender'])) {
+            <span style="color:red"><?php if (isset($err['gender'])) {
                         echo $err['gender'];
                     }
                     ?></span>
@@ -92,7 +88,7 @@
                 <input type="number" name="price" id="" class="form-control" placeholder="" value="<?php if (isset($price)) {
                                                                                                         echo $price;
                                                                                                     }  ?>">
-                <span><?php if (isset($err['price'])) {
+                <span style="color:red"><?php if (isset($err['price'])) {
                             echo $err['price'];
                         }
                         ?></span>
@@ -102,7 +98,7 @@
                 <input type="number" name="quantity" id="" class="form-control" placeholder="" value="<?php if (isset($quantity)) {
                                                                                                             echo $quantity;
                                                                                                         }  ?>">
-                <span><?php if (isset($err['quantity'])) {
+                <span style="color:red"><?php if (isset($err['quantity'])) {
                             echo $err['quantity'];
                         }
                         ?></span>
@@ -113,7 +109,7 @@
                 <input accept="image/*" type='file' id="imgInp" name="image" /><br><br>
                 <img type="hidden" width="90px" height="90px" id="blah" src="#" alt="" /> <br>
 
-                <span><?php if (isset($err['image'])) {
+                <span style="color:red"><?php if (isset($err['image'])) {
                             echo $err['image'];
                         }
                         ?></span>
@@ -134,8 +130,14 @@
                     }
                 });
             });
+            
         </script>
-    </div>
-</body>
 
-</html>
+            </div>
+        </div>
+        <?php
+        include '../views/layout/footer.php';
+        ?>
+
+
+

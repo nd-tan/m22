@@ -104,7 +104,8 @@ class ProductModel
     {
         global $conn;
         $sql = "SELECT products.*,categories.name as categoryName FROM products join categories on products.categories_id = categories.id 
-        WHERE categories.name LIKE '%$search%'  OR products.name like '%$search%'  OR products.gender like '%$search%' OR products.age like '%$search%' OR products.color like '%$search%' OR products.price like '%$search%' OR products.id like '%$search%'";
+        WHERE (categories.name LIKE '%$search%'  OR products.name like '%$search%'  OR products.gender like '%$search%' OR products.age like '%$search%' 
+        OR products.color like '%$search%' OR products.price like '%$search%' OR products.id like '%$search%') AND products.deleted_at IS NULL";
         $stmt = $conn->query($sql);
         $stmt->setFetchMode(PDO::FETCH_OBJ);
         $rows = $stmt->fetchAll();

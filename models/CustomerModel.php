@@ -6,7 +6,7 @@ class CustomerModel
     public function all()
     {
         global $conn;
-        $sql = "SELECT * FROM customers WHERE deleted_at is null";
+        $sql = "SELECT * FROM customers";
         $stmt = $conn->query($sql);
         $stmt->setFetchMode(PDO::FETCH_OBJ);
         $rows = $stmt->fetchAll();

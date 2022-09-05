@@ -55,7 +55,7 @@ include '../views/layout/sidebar.php';
                                     <td>$<?php echo number_format($item->total_order); ?></td>
                                     <td><?php echo $item->date_add; ?></td>
                                     <td width="250px">
-                                        <a class="btn btn-success" href="OrderController.php?action=detail&id=<?php echo $item->id ?>">Detail</a>
+                                        <a class="btn " href="OrderController.php?action=detail&id=<?php echo $item->id ?>"><i class="bi bi-eye h4" style="color:chocolate"></i></a>
                                     </td>
                                 </tr>
                             </tbody>

@@ -1,28 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+include '../views/layout/header.php';
+include '../views/layout/sidebar.php';
+// session_start();
+?>
+<div class="container-fluid">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        span {
-            color: red;
-        }
-    </style>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-</head>
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Edit Category</h1>
+        <a class="btn-success"><?= $_SESSION['flash_message'] ?? ''; ?></a>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+    </div>
 
-<body>
-    <div class="container">
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_content">
         <form method="post" action="">
             <?php if(isset($obj->name)):?>
-            <legend>Edit Category</legend>
             <div class="mb-3">
                 <label for="disabledTextInput" class="form-label">Name</label>
                 <input type="text" name="name" id="" class="form-control" placeholder="" value="<?php echo $obj->name;?>">
-                <span><?php if (isset($err['name_1'])) {
+                <span style="color:red"><?php if (isset($err['name_1'])) {
                     echo $err['name_1'];
                 }if (isset($err['name'])) {
                     echo $err['name'];
@@ -33,7 +30,8 @@
             <a href="CategoryController.php?action=index" class="btn btn-danger">cancel</a>
             <?php else : echo ""; endif; ?>
         </form>
+        </div>
     </div>
-</body>
-
-</html>
+<?php
+ include '../views/layout/footer.php' ;
+ ?>

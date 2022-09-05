@@ -2,6 +2,12 @@
 include '../views/layout/header.php';
 include '../views/layout/sidebar.php';
 // session_start();
+// if(isset($err))
+// {
+
+//     echo ($err);
+//     die();
+// }
 ?>
 <div class="container-fluid">
 
@@ -22,9 +28,9 @@ include '../views/layout/sidebar.php';
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" action="CategoryController.php?action=search" method="post">
                         <div class="input-group">
                             <input name="search" type="text"  class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2" style="left:475px; right: inherit">
+                                aria-label="Search" aria-describedby="basic-addon2" style="left:600px; right: inherit">
                             <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit" style="left:475px;">
+                                <button class="btn btn-primary" type="submit" style="left:600px;">
                                     <i class="fas fa-search fa-sm"></i>
                                 </button>
                             </div>
@@ -43,17 +49,18 @@ include '../views/layout/sidebar.php';
 
                             <tbody>
                                 <tr>
-                                    <td width="170px"><?php echo $item->id; ?></td>
+                                    <td width="170px"><?php echo $key+1; ?></td>
                                     <td><?php echo $item->name; ?></td>
                                     <td width="250px">
-                                        <a class="btn btn-success" href="CategoryController.php?action=Restore&id=<?php echo $item->id ?>" onclick="return confirm('Are you sure you want to restore?');">Restore</a>
-                                        <a class="btn btn-danger" href="CategoryController.php?action=delete&id=<?php echo $item->id ?>" onclick="return confirm('Are you sure you want to delete?');">Delete</a>
+                                        <a class="btn" href="CategoryController.php?action=Restore&id=<?php echo $item->id ?>" onclick="return confirm('Are you sure you want to restore?');"><i class="bi bi-arrow-counterclockwise h4" style="color:blue"></i></a>
+                                        <a class="btn" href="CategoryController.php?action=delete&id=<?php echo $item->id ?>" onclick="return confirm('Are you sure you want to delete?');"><i class="bi bi-trash h3" style="color:red"></i></a>
                                     </td>
                                 </tr>
                             </tbody>
                         <?php } ?>
                         <?php else : ""; endif; ?>
                     </table>
+                    <?php if(isset($err['delete'])) { echo $err['delete'];} else { echo "";};?>
                 </div>
             </main>
         </div>

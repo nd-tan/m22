@@ -20,19 +20,21 @@ include "./../../views/shop/layout/sidebar.php";
 
         </tr>
     </thead>
-    <?php if (isset($object->name)) : ?>
+    <?php if (isset($object)) : ?>
+    <?php foreach($object as $value) : ?>
             <tbody>
                 <tr>
-                    <td><?= $object->name; ?></td>
-                    <td><?= $object->age; ?></td>
-                    <td><?= $object->color; ?></td>
-                    <td><?= $object->gender; ?></td>
-                    <td><?=number_format($object->price) ; ?></td>
-                    <td><?= $object->cate_name; ?></td>
-                    <td><img src="../../Img/img/<?php echo $object->image ?>" width="100px" height="100px" alt=""></td>
-                    <td><a class="btn btn-success" href="CartController.php?action=showcart&id=<?=$object->id?>">Add to Cart</a></td>
+                    <td><?= $value->name; ?></td>
+                    <td><?= $value->age; ?></td>
+                    <td><?= $value->color; ?></td>
+                    <td><?= $value->gender; ?></td>
+                    <td><?=number_format($value->price) ; ?></td>
+                    <td><?= $value->name_cate; ?></td>
+                    <td><img src="../../Img/img/<?php echo $value->image ?>" width="100px" height="100px" alt=""></td>
+                    <td><a class="btn btn-success" href="CartController.php?action=showcart&id=<?=$value->id?>">Add to Cart</a></td>
                 </tr>
             </tbody>
+    <?php endforeach; ?>
     <?php else : ""; endif;?>
 </table>
 
