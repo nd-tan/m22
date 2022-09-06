@@ -40,6 +40,13 @@ class UserController
             if ($password == "") {
                 $err['password'] = "bạn không thể để trống password";
             }
+            // foreach($rows as $value)
+            // {
+            //     if($value->email==$email)
+            //     {
+            //         $err['email1']="email đã tồn tại";
+            //     }
+            // }
             if (empty($err)) {
                 $check = $UserModel->sigin($email, $password);
                 if ($check) {
@@ -58,10 +65,7 @@ class UserController
         }
         include_once '../views/users/sigin.php';
     }
-    // public function category()
-    // {
-    //     include "../views/category/index.php";
-    // }
+
     public function home()
     {
         include "../views/index/index.php";

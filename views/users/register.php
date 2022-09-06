@@ -54,7 +54,8 @@
                                                 <label for="inputEmail">Email</label>
                                                 <span><?php if (isset($err['email'])) {
                                                          echo $err['email'];
-                                                            }  ?></span>
+                                                            }
+                                                            ?></span>
                                             </div>
                                             <div class="row mb-3">
                                                 <div class="col-md-6">
